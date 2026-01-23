@@ -1,0 +1,77 @@
+/* AI Performance Academy - Minimal LiaScript Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --academy-black: #000000;
+  --academy-gray: #767D8C;
+  --academy-red: #FF1A1A;
+  --academy-white: #FFFFFF;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif !important;
+  background-color: var(--academy-white) !important;
+  color: var(--academy-black) !important;
+}
+
+.lia-content {
+  background-color: var(--academy-white) !important;
+  background-image: none !important;
+}
+
+.lia-toolbar {
+  background: var(--academy-black) !important;
+  border-bottom: 3px solid var(--academy-gray) !important;
+}
+
+h1.lia-h1 {
+  font-weight: 800 !important;
+  color: var(--academy-black) !important;
+  border-bottom: 4px solid var(--academy-gray) !important;
+  padding-bottom: 20px !important;
+}
+
+h2.lia-h2 {
+  font-weight: 700 !important;
+  color: var(--academy-black) !important;
+  border-left: 6px solid var(--academy-gray) !important;
+  padding-left: 20px !important;
+}
+
+.lia-toc {
+  background: #F5F5F5 !important;
+  border-left: 4px solid var(--academy-red) !important;
+}
+
+.lia-toc a:hover {
+  background: var(--academy-red) !important;
+  color: var(--academy-white) !important;
+}
+
+.lia-link {
+  color: var(--academy-black) !important;
+  font-weight: 600 !important;
+}
+
+.lia-btn {
+  background: var(--academy-black) !important;
+  color: var(--academy-white) !important;
+  border-radius: 0 !important;
+}
+
+.lia-btn:hover {
+  background: var(--academy-gray) !important;
+}
+
+code {
+  background-color: var(--academy-black) !important;
+  color: var(--academy-white) !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+.lia-quote {
+  background: #F5F5F5 !important;
+  border-left: 6px solid var(--academy-gray) !important;
+  color: var(--academy-black) !important;
+}
