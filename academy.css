@@ -1,13 +1,14 @@
 /**
  * AI Performance Academy - LiaScript Theme
- * Version: 2.0.0
- * Brand Colors: #000000 (Black), #767D8C (Gray), #FF1A1A (Red)
+ * Version: 2.1.0
+ * Brand Colors: #000000 (Black), #767D8C (Gray), #FF1A1A (Red - only Navigation)
  * Font: Montserrat (Bold 800, Medium 500)
  *
  * Usage in LiaScript:
  * link: https://raw.githubusercontent.com/HolgerGelhausen/ai-performance-academy-assets/main/academy.css
  *
  * Changelog:
+ * v2.1.0 - Red accent only in navigation/chapters, rest in black/gray
  * v2.0.0 - Fixed gray background issues, improved container styling
  * v1.0.0 - Initial release
  */
@@ -54,7 +55,7 @@ section {
   padding: 50px !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  border-top: 4px solid var(--academy-red) !important;
+  border-top: 4px solid var(--academy-gray) !important;
 }
 
 /* === HEADERS === */
@@ -63,7 +64,7 @@ h1, h1.lia-h1 {
   font-weight: 800 !important;
   font-size: 2.8em !important;
   color: var(--academy-black) !important;
-  border-bottom: 4px solid var(--academy-red) !important;
+  border-bottom: 4px solid var(--academy-gray) !important;
   padding-bottom: 20px !important;
   margin-bottom: 30px !important;
   letter-spacing: -0.5px !important;
@@ -76,7 +77,7 @@ h2, h2.lia-h2 {
   color: var(--academy-black) !important;
   margin-top: 2.5em !important;
   margin-bottom: 1em !important;
-  border-left: 6px solid var(--academy-red) !important;
+  border-left: 6px solid var(--academy-gray) !important;
   padding-left: 20px !important;
 }
 
@@ -94,9 +95,9 @@ h4, h4.lia-h4 {
   color: var(--academy-black) !important;
 }
 
-/* === LINKS === */
+/* === LINKS (default - gray/black) === */
 a, a.lia-link {
-  color: var(--academy-red) !important;
+  color: var(--academy-black) !important;
   text-decoration: none !important;
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
@@ -104,14 +105,14 @@ a, a.lia-link {
 }
 
 a:hover, a.lia-link:hover {
-  border-bottom: 2px solid var(--academy-red) !important;
-  color: var(--academy-black) !important;
+  border-bottom: 2px solid var(--academy-gray) !important;
+  color: var(--academy-gray) !important;
 }
 
 /* === BLOCKQUOTES === */
 blockquote, .lia-quote {
   background: var(--academy-light-bg) !important;
-  border-left: 6px solid var(--academy-red) !important;
+  border-left: 6px solid var(--academy-gray) !important;
   padding: 25px 35px !important;
   margin: 30px 0 !important;
   font-style: normal !important;
@@ -136,7 +137,7 @@ blockquote p, .lia-quote p {
 /* === CODE === */
 code {
   background-color: var(--academy-black) !important;
-  color: var(--academy-red) !important;
+  color: var(--academy-white) !important;
   padding: 4px 10px !important;
   border-radius: 4px !important;
   font-family: 'JetBrains Mono', monospace !important;
@@ -150,7 +151,7 @@ pre, pre.lia-code {
   padding: 25px !important;
   border-radius: 0 !important;
   overflow-x: auto !important;
-  border-left: 6px solid var(--academy-red) !important;
+  border-left: 6px solid var(--academy-gray) !important;
   margin: 25px 0 !important;
 }
 
@@ -172,7 +173,7 @@ li {
 }
 
 li::marker {
-  color: var(--academy-red) !important;
+  color: var(--academy-black) !important;
   font-weight: 700 !important;
 }
 
@@ -217,7 +218,7 @@ tr:hover, .lia-table tr:hover {
   color: var(--academy-white) !important;
   padding: 30px !important;
   border-radius: 0 !important;
-  border-left: 8px solid var(--academy-red) !important;
+  border-left: 8px solid var(--academy-gray) !important;
   margin: 30px 0 !important;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
 }
@@ -241,7 +242,7 @@ tr:hover, .lia-table tr:hover {
 
 .lia-quiz__answer:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
-  border-left-color: var(--academy-red) !important;
+  border-left-color: var(--academy-gray) !important;
 }
 
 .lia-quiz__answer--correct {
@@ -256,7 +257,7 @@ tr:hover, .lia-table tr:hover {
 
 /* === BUTTONS === */
 .lia-btn, button {
-  background: var(--academy-red) !important;
+  background: var(--academy-black) !important;
   color: var(--academy-white) !important;
   border: none !important;
   padding: 14px 32px !important;
@@ -267,18 +268,18 @@ tr:hover, .lia-table tr:hover {
   transition: all 0.3s ease !important;
   border-radius: 0 !important;
   letter-spacing: 0.5px !important;
-  box-shadow: 0 4px 15px rgba(255, 26, 26, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
 .lia-btn:hover, button:hover {
-  background: var(--academy-black) !important;
+  background: var(--academy-gray) !important;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
   transform: translateY(-2px) !important;
 }
 
 .lia-btn:active, button:active {
   transform: translateY(0) !important;
-  box-shadow: 0 2px 10px rgba(255, 26, 26, 0.3) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* === CHECKBOXES === */
@@ -287,7 +288,7 @@ input[type="checkbox"] {
   -webkit-appearance: none !important;
   width: 22px !important;
   height: 22px !important;
-  border: 3px solid var(--academy-red) !important;
+  border: 3px solid var(--academy-gray) !important;
   border-radius: 0 !important;
   cursor: pointer !important;
   position: relative !important;
@@ -296,7 +297,8 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background: var(--academy-red) !important;
+  background: var(--academy-black) !important;
+  border-color: var(--academy-black) !important;
 }
 
 input[type="checkbox"]:checked::after {
@@ -312,7 +314,7 @@ input[type="checkbox"]:checked::after {
 /* === ACCORDION === */
 .lia-accordion {
   background: var(--academy-light-bg) !important;
-  border-left: 4px solid var(--academy-red) !important;
+  border-left: 4px solid var(--academy-gray) !important;
   margin: 20px 0 !important;
   border-radius: 0 !important;
 }
@@ -328,7 +330,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .lia-accordion__header:hover {
-  background: var(--academy-red) !important;
+  background: var(--academy-gray) !important;
 }
 
 .lia-accordion__content {
@@ -341,7 +343,7 @@ input[type="checkbox"]:checked::after {
 hr {
   border: none !important;
   height: 3px !important;
-  background: linear-gradient(90deg, transparent, var(--academy-red), transparent) !important;
+  background: linear-gradient(90deg, transparent, var(--academy-gray), transparent) !important;
   margin: 40px 0 !important;
 }
 
@@ -366,7 +368,7 @@ p {
 /* === TOOLBAR === */
 .lia-toolbar {
   background: var(--academy-black) !important;
-  border-bottom: 3px solid var(--academy-red) !important;
+  border-bottom: 3px solid var(--academy-gray) !important;
 }
 
 .lia-toolbar button {
@@ -374,10 +376,10 @@ p {
 }
 
 .lia-toolbar button:hover {
-  background: var(--academy-red) !important;
+  background: var(--academy-gray) !important;
 }
 
-/* === NAVIGATION === */
+/* === NAVIGATION (ONLY RED ELEMENT!) === */
 .lia-nav {
   background: var(--academy-light-bg) !important;
   border-left: 4px solid var(--academy-red) !important;
@@ -402,6 +404,34 @@ p {
   border-left: 6px solid var(--academy-red) !important;
 }
 
+/* === TOC (Table of Contents - also RED) === */
+.lia-toc {
+  background: var(--academy-light-bg) !important;
+  border-left: 4px solid var(--academy-red) !important;
+  padding: 20px !important;
+}
+
+.lia-toc a {
+  color: var(--academy-black) !important;
+  border-bottom: none !important;
+  display: block !important;
+  padding: 8px 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.lia-toc a:hover {
+  background: var(--academy-red) !important;
+  color: var(--academy-white) !important;
+  padding-left: 20px !important;
+  border-bottom: none !important;
+}
+
+.lia-toc a.active {
+  border-left: 4px solid var(--academy-red) !important;
+  padding-left: 16px !important;
+  font-weight: 700 !important;
+}
+
 /* === INPUT FIELDS === */
 .lia-input, input[type="text"], input[type="email"], textarea {
   border: 2px solid var(--academy-gray) !important;
@@ -415,14 +445,14 @@ p {
 }
 
 .lia-input:focus, input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
-  border-color: var(--academy-red) !important;
+  border-color: var(--academy-black) !important;
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* === BADGES/TAGS === */
 .lia-badge {
-  background: var(--academy-red) !important;
+  background: var(--academy-black) !important;
   color: var(--academy-white) !important;
   padding: 6px 14px !important;
   border-radius: 0 !important;
@@ -434,7 +464,7 @@ p {
 /* === ALERTS/WARNINGS === */
 .lia-alert {
   padding: 20px 25px !important;
-  border-left: 6px solid var(--academy-red) !important;
+  border-left: 6px solid var(--academy-gray) !important;
   background: var(--academy-light-bg) !important;
   margin: 25px 0 !important;
   border-radius: 0 !important;
@@ -505,17 +535,17 @@ img {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--academy-red) !important;
+  background: var(--academy-black) !important;
 }
 
 /* === SELECTION === */
 ::selection {
-  background: var(--academy-red) !important;
+  background: var(--academy-gray) !important;
   color: var(--academy-white) !important;
 }
 
 ::-moz-selection {
-  background: var(--academy-red) !important;
+  background: var(--academy-gray) !important;
   color: var(--academy-white) !important;
 }
 
@@ -530,6 +560,7 @@ article[class*="lia-"] {
 .lia-toolbar,
 .lia-quiz,
 .lia-nav,
+.lia-toc,
 .lia-accordion,
 .lia-alert,
 blockquote,
