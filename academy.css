@@ -1,0 +1,477 @@
+/**
+ * AI Performance Academy - LiaScript Theme
+ * Version: 1.0.0
+ * Brand Colors: #000000 (Black), #767D8C (Gray), #FF1A1A (Red)
+ * Font: Montserrat (Bold 800, Medium 500)
+ *
+ * Usage in LiaScript:
+ * link: https://raw.githubusercontent.com/HolgerGelhausen/ai-performance-academy-assets/main/academy.css
+ */
+
+/* === FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* === BRAND COLORS === */
+:root {
+  --academy-black: #000000 !important;
+  --academy-gray: #767D8C !important;
+  --academy-red: #FF1A1A !important;
+  --academy-white: #FFFFFF !important;
+  --academy-light-bg: #F5F5F5 !important;
+}
+
+/* === BASE STYLES === */
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  background-color: var(--academy-white) !important;
+  color: var(--academy-black) !important;
+  line-height: 1.7 !important;
+  font-weight: 500 !important;
+}
+
+/* === HEADERS === */
+h1, h1.lia-h1 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 2.8em !important;
+  color: var(--academy-black) !important;
+  border-bottom: 4px solid var(--academy-red) !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 30px !important;
+  letter-spacing: -0.5px !important;
+}
+
+h2, h2.lia-h2 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 2em !important;
+  color: var(--academy-black) !important;
+  margin-top: 2.5em !important;
+  margin-bottom: 1em !important;
+  border-left: 6px solid var(--academy-red) !important;
+  padding-left: 20px !important;
+}
+
+h3, h3.lia-h3 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.4em !important;
+  color: var(--academy-gray) !important;
+  margin-top: 1.5em !important;
+}
+
+h4, h4.lia-h4 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 600 !important;
+  color: var(--academy-black) !important;
+}
+
+/* === SLIDES === */
+.lia-slide__container {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8F8F8 100%) !important;
+  padding: 50px !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border-top: 8px solid var(--academy-red) !important;
+}
+
+/* === LINKS === */
+a, a.lia-link {
+  color: var(--academy-red) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+a:hover, a.lia-link:hover {
+  border-bottom: 2px solid var(--academy-red) !important;
+  color: var(--academy-black) !important;
+}
+
+/* === BLOCKQUOTES === */
+blockquote, .lia-quote {
+  background: var(--academy-light-bg) !important;
+  border-left: 6px solid var(--academy-red) !important;
+  padding: 20px 30px !important;
+  margin: 25px 0 !important;
+  font-style: italic !important;
+  color: var(--academy-gray) !important;
+  border-radius: 0 !important;
+}
+
+blockquote strong, .lia-quote strong {
+  color: var(--academy-black) !important;
+  font-weight: 700 !important;
+}
+
+/* === CODE === */
+code {
+  background-color: var(--academy-black) !important;
+  color: var(--academy-red) !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.9em !important;
+  font-weight: 600 !important;
+}
+
+pre, pre.lia-code {
+  background-color: var(--academy-black) !important;
+  color: var(--academy-white) !important;
+  padding: 25px !important;
+  border-radius: 0 !important;
+  overflow-x: auto !important;
+  border-left: 6px solid var(--academy-red) !important;
+  margin: 25px 0 !important;
+}
+
+pre code {
+  background-color: transparent !important;
+  color: var(--academy-white) !important;
+  padding: 0 !important;
+}
+
+/* === LISTS === */
+ul, ol {
+  line-height: 2 !important;
+  margin: 20px 0 !important;
+}
+
+li {
+  margin-bottom: 10px !important;
+  color: var(--academy-black) !important;
+}
+
+li::marker {
+  color: var(--academy-red) !important;
+  font-weight: 700 !important;
+}
+
+/* === TABLES === */
+table, .lia-table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin: 30px 0 !important;
+  background: var(--academy-white) !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+thead, .lia-table thead {
+  background: var(--academy-black) !important;
+  color: var(--academy-white) !important;
+}
+
+th, .lia-table th {
+  padding: 18px !important;
+  text-align: left !important;
+  font-weight: 700 !important;
+  font-size: 0.95em !important;
+  letter-spacing: 0.5px !important;
+  border: none !important;
+}
+
+td, .lia-table td {
+  padding: 15px 18px !important;
+  border-bottom: 1px solid var(--academy-light-bg) !important;
+  color: var(--academy-black) !important;
+}
+
+tr:hover, .lia-table tr:hover {
+  background-color: var(--academy-light-bg) !important;
+}
+
+/* === QUIZ STYLING === */
+.lia-quiz {
+  background: linear-gradient(135deg, var(--academy-black) 0%, #1a1a1a 100%) !important;
+  color: var(--academy-white) !important;
+  padding: 30px !important;
+  border-radius: 0 !important;
+  border-left: 8px solid var(--academy-red) !important;
+  margin: 30px 0 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.lia-quiz__question {
+  font-size: 1.2em !important;
+  font-weight: 700 !important;
+  color: var(--academy-white) !important;
+  margin-bottom: 20px !important;
+}
+
+.lia-quiz__answer {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  padding: 15px 20px !important;
+  margin: 12px 0 !important;
+  border-radius: 0 !important;
+  border-left: 4px solid transparent !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.lia-quiz__answer:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-left-color: var(--academy-red) !important;
+}
+
+.lia-quiz__answer--correct {
+  border-left-color: #00FF00 !important;
+  background-color: rgba(0, 255, 0, 0.1) !important;
+}
+
+.lia-quiz__answer--wrong {
+  border-left-color: var(--academy-red) !important;
+  background-color: rgba(255, 26, 26, 0.1) !important;
+}
+
+/* === BUTTONS === */
+.lia-btn, button {
+  background: var(--academy-red) !important;
+  color: var(--academy-white) !important;
+  border: none !important;
+  padding: 14px 32px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1em !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  border-radius: 0 !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 4px 15px rgba(255, 26, 26, 0.3) !important;
+}
+
+.lia-btn:hover, button:hover {
+  background: var(--academy-black) !important;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+.lia-btn:active, button:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 10px rgba(255, 26, 26, 0.3) !important;
+}
+
+/* === CHECKBOXES === */
+input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  border: 3px solid var(--academy-red) !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: all 0.2s ease !important;
+  background: var(--academy-white) !important;
+}
+
+input[type="checkbox"]:checked {
+  background: var(--academy-red) !important;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓' !important;
+  position: absolute !important;
+  top: -2px !important;
+  left: 3px !important;
+  color: var(--academy-white) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+}
+
+/* === ACCORDION === */
+.lia-accordion {
+  background: var(--academy-light-bg) !important;
+  border-left: 4px solid var(--academy-red) !important;
+  margin: 20px 0 !important;
+  border-radius: 0 !important;
+}
+
+.lia-accordion__header {
+  background: var(--academy-black) !important;
+  color: var(--academy-white) !important;
+  padding: 18px 25px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  border-radius: 0 !important;
+}
+
+.lia-accordion__header:hover {
+  background: var(--academy-red) !important;
+}
+
+.lia-accordion__content {
+  padding: 25px !important;
+  background: var(--academy-white) !important;
+  color: var(--academy-black) !important;
+}
+
+/* === HORIZONTAL RULES === */
+hr {
+  border: none !important;
+  height: 3px !important;
+  background: linear-gradient(90deg, transparent, var(--academy-red), transparent) !important;
+  margin: 40px 0 !important;
+}
+
+/* === STRONG/BOLD === */
+strong, b {
+  color: var(--academy-black) !important;
+  font-weight: 800 !important;
+}
+
+/* === EMPHASIS === */
+em, i {
+  color: var(--academy-gray) !important;
+  font-style: italic !important;
+}
+
+/* === TOOLBAR === */
+.lia-toolbar {
+  background: var(--academy-black) !important;
+  border-bottom: 3px solid var(--academy-red) !important;
+}
+
+.lia-toolbar button {
+  color: var(--academy-white) !important;
+}
+
+.lia-toolbar button:hover {
+  background: var(--academy-red) !important;
+}
+
+/* === NAVIGATION === */
+.lia-nav {
+  background: var(--academy-light-bg) !important;
+  border-left: 4px solid var(--academy-red) !important;
+}
+
+.lia-nav__item {
+  color: var(--academy-black) !important;
+  font-weight: 600 !important;
+  padding: 12px 20px !important;
+  transition: all 0.3s ease !important;
+}
+
+.lia-nav__item:hover {
+  background: var(--academy-red) !important;
+  color: var(--academy-white) !important;
+  padding-left: 30px !important;
+}
+
+.lia-nav__item--active {
+  background: var(--academy-black) !important;
+  color: var(--academy-white) !important;
+  border-left: 6px solid var(--academy-red) !important;
+}
+
+/* === INPUT FIELDS === */
+.lia-input, input[type="text"], input[type="email"], textarea {
+  border: 2px solid var(--academy-gray) !important;
+  border-radius: 0 !important;
+  padding: 12px 18px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1em !important;
+  transition: all 0.3s ease !important;
+  background: var(--academy-white) !important;
+  color: var(--academy-black) !important;
+}
+
+.lia-input:focus, input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  border-color: var(--academy-red) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.1) !important;
+}
+
+/* === BADGES/TAGS === */
+.lia-badge {
+  background: var(--academy-red) !important;
+  color: var(--academy-white) !important;
+  padding: 6px 14px !important;
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  font-size: 0.85em !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* === ALERTS/WARNINGS === */
+.lia-alert {
+  padding: 20px 25px !important;
+  border-left: 6px solid var(--academy-red) !important;
+  background: var(--academy-light-bg) !important;
+  margin: 25px 0 !important;
+  border-radius: 0 !important;
+}
+
+.lia-alert--warning {
+  border-left-color: #FFA500 !important;
+}
+
+.lia-alert--success {
+  border-left-color: #00FF00 !important;
+}
+
+.lia-alert--info {
+  border-left-color: var(--academy-gray) !important;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  h1, h1.lia-h1 {
+    font-size: 2em !important;
+  }
+
+  h2, h2.lia-h2 {
+    font-size: 1.5em !important;
+  }
+
+  .lia-slide__container {
+    padding: 25px !important;
+  }
+
+  .lia-quiz {
+    padding: 20px !important;
+  }
+
+  table, .lia-table {
+    font-size: 0.9em !important;
+  }
+
+  th, .lia-table th,
+  td, .lia-table td {
+    padding: 12px !important;
+  }
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--academy-light-bg) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--academy-gray) !important;
+  border-radius: 0 !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--academy-red) !important;
+}
+
+/* === SELECTION === */
+::selection {
+  background: var(--academy-red) !important;
+  color: var(--academy-white) !important;
+}
+
+::-moz-selection {
+  background: var(--academy-red) !important;
+  color: var(--academy-white) !important;
+}
