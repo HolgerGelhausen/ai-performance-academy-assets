@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das KI-Mischpult für Ihre Organisation - AI Performance Academy</title>
+<!-- Version: 1.5 - AI Performance Academy Brand Design -->
+<!-- Changelog:
+  v1.5 (06.02.2026) - Layout Slide 2 überarbeitet
+    - Bild links (55%), Text-Cards rechts - visuell ausgewogen
+    - Cards und Kernidee vertikal zentriert neben dem Bild
+  v1.4 (06.02.2026) - Original Mischpult-Bild (Kühl/Muster) in Slide 2 eingebaut
+    - Foto vom Original-Mischpult des Managements als visuelles Element
+    - Responsive Darstellung mit max-width und border-radius
+  v1.3 (06.02.2026) - GitHub Pages Live-URL statt Repo-Link
+    - Alle Links zeigen auf holgergelhausen.github.io/interactive-assessment/
+    - Assessment direkt im Browser ausführbar (kein Repo-Link mehr)
+  v1.2 (06.02.2026) - GitHub-Link persistent + "Warum"-Slide
+    - Fester GitHub-Link auf jeder Slide (oben rechts neben Keyboard-Hint)
+    - Neuer Slide "Warum dieses Werkzeug?" nach Brücke-Slide
+    - Narrative: Fragen → Rückschlüsse → Interactive Assessment → Diese Präsentation
+  v1.1 (06.02.2026) - Original Mischpult des Managements integriert
+    - 3 neue Slides: Quelle (Metaplan/Kühl/Muster), 3 Original-Dimensionen, Brücke zum KI-Mischpult
+    - Formalisierung (Programme, Kommunikationswege, Personal) mit Low/High Konsequenzen
+    - Narrative: Original → Adaptation → KI-Anwendung
+  v1.0 (06.02.2026) - Initial AI-PAI branded version
+    - Content from mischpult-v22-ki-transformation-collapsible.md
+    - Design from PRAESENTATION-AGENTENSCHWARM-AIPAI.html
+    - Background: #000000 (pure black)
+    - Accent: #FF1A1A (AI-PAI red)
+    - Secondary: #767D8C (gray)
+    - Font: Montserrat Bold/Medium
+    - Interactive mixing consoles with dark theme
+    - 30 slides with keyboard/touch navigation
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000000;
+    --red: #FF1A1A;
+    --red-light: #FF4444;
+    --red-dark: #CC1515;
+    --gray: #767D8C;
+    --gray-light: #9DA3AF;
+    --gray-dark: #4A4F59;
+    --white: #FFFFFF;
+    --white-muted: #E5E5E5;
+    --blue: #3498db;
+    --blue-light: #5dade2;
+    --green: #27ae60;
+    --green-light: #2ecc71;
+    --orange: #f39c12;
+    --orange-light: #f1c40f;
+    --purple: #9b59b6;
+    --teal: #1abc9c;
+  }
+
+  body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--black);
+    color: var(--white-muted);
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Navigation */
+  .nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 1px solid var(--gray-dark);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-btn {
+    background: var(--gray-dark);
+    color: var(--white);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-btn:hover { background: var(--gray); transform: scale(1.02); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+  .nav-btn.next { background: var(--red); }
+  .nav-btn.next:hover { background: var(--red-light); box-shadow: 0 0 20px rgba(255, 26, 26, 0.4); }
+
+  .progress-info { text-align: center; }
+  .progress-bar {
+    width: 300px;
+    height: 4px;
+    background: var(--gray-dark);
+    border-radius: 2px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--red);
+    transition: width 0.5s ease;
+  }
+  .slide-counter {
+    font-size: 14px;
+    color: var(--gray);
+    font-weight: 500;
+  }
+
+  /* Slides Container */
+  .slides-container {
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+
+  .slide {
+    display: none;
+    min-height: calc(100vh - 80px);
+    padding: 40px 60px;
+    animation: fadeIn 0.5s ease;
+  }
+  .slide.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Common Styles */
+  .slide-header { text-align: center; }
+  .slide-header .stufe {
+    font-size: 14px;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .slide-header h1 {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .slide-header p {
+    font-size: 22px;
+    color: var(--gray-light);
+    max-width: 900px;
+    font-weight: 500;
+  }
+
+  /* Title Slide */
+  .title-slide { justify-content: center; text-align: center; }
+  .title-slide h1 { font-size: 64px; color: var(--white); margin-bottom: 24px; }
+  .title-slide .subtitle {
+    font-size: 28px;
+    color: var(--gray-light);
+    margin-bottom: 32px;
+    max-width: 900px;
+    font-weight: 500;
+  }
+  .title-slide .meta {
+    font-size: 20px;
+    color: var(--gray);
+    font-weight: 500;
+  }
+
+  /* Stats Row */
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 32px 54px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 56px; font-weight: 900; color: var(--red); }
+  .stat .label { font-size: 18px; color: var(--gray-light); margin-top: 10px; font-weight: 500; }
+
+  /* Insight Box */
+  .insight-box {
+    background: linear-gradient(135deg, #0d0d0d, #000000);
+    border: 2px solid var(--gray-dark);
+    border-radius: 16px;
+    padding: 36px 54px;
+    text-align: center;
+    max-width: 1000px;
+    width: 100%;
+  }
+  .insight-box h3 { font-size: 26px; color: var(--white); margin-bottom: 16px; font-weight: 700; }
+  .insight-box p { font-size: 20px; color: var(--gray-light); line-height: 1.7; font-weight: 500; }
+
+  /* Content Box - Generic */
+  .content-box {
+    background: linear-gradient(135deg, #0d0d0d, #000000);
+    border: 2px solid var(--gray-dark);
+    border-radius: 16px;
+    padding: 32px 48px;
+    max-width: 1100px;
+    width: 100%;
+  }
+  .content-box h3 {
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .content-box p, .content-box li {
+    font-size: 18px;
+    color: var(--gray-light);
+    line-height: 1.7;
+    font-weight: 500;
+  }
+  .content-box ul, .content-box ol {
+    padding-left: 24px;
+    margin: 12px 0;
+  }
+  .content-box li { margin-bottom: 8px; }
+  .content-box strong { color: var(--red-light); font-weight: 700; }
+
+  /* Feature Cards Grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    width: 100%;
+  }
+  .feature-card {
+    background: linear-gradient(135deg, #0d0d0d, #000000);
+    border-radius: 16px;
+    border: 2px solid var(--gray-dark);
+    padding: 28px;
+    transition: transform 0.3s;
+  }
+  .feature-card:hover { transform: translateY(-4px); border-color: var(--red); }
+  .feature-card .icon { font-size: 40px; margin-bottom: 12px; }
+  .feature-card h4 { font-size: 20px; color: var(--white); margin-bottom: 12px; font-weight: 700; }
+  .feature-card p { font-size: 16px; color: var(--gray-light); line-height: 1.6; font-weight: 500; }
+  .feature-card .highlight { color: var(--red-light); font-weight: 600; }
+
+  /* Scenario Cards */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    width: 100%;
+  }
+  .scenario-card {
+    background: linear-gradient(135deg, #0d0d0d, #000000);
+    border-radius: 16px;
+    border: 2px solid var(--gray-dark);
+    padding: 28px;
+    transition: transform 0.3s;
+  }
+  .scenario-card:hover { transform: translateY(-4px); border-color: var(--red); }
+  .scenario-card h4 { font-size: 20px; color: var(--white); margin-bottom: 14px; font-weight: 700; }
+  .scenario-card p { font-size: 17px; color: var(--gray-light); line-height: 1.6; margin-bottom: 12px; font-weight: 500; }
+  .scenario-card .result {
+    font-size: 15px;
+    padding: 10px 16px;
+    background: rgba(255, 26, 26, 0.1);
+    border-radius: 10px;
+    color: var(--red-light);
+    font-weight: 600;
+  }
+
+  /* Blockquote */
+  blockquote, .quote-box {
+    background: rgba(255, 26, 26, 0.06);
+    border-left: 5px solid var(--red);
+    padding: 24px 32px;
+    border-radius: 0 12px 12px 0;
+    max-width: 900px;
+    width: 100%;
+  }
+  .quote-box p {
+    font-size: 22px;
+    color: var(--white-muted);
+    font-style: italic;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  /* Mixing Console Dark Theme */
+  .console-container {
+    background: linear-gradient(135deg, #0d0d0d, #000000);
+    border: 2px solid var(--gray-dark);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .console-sliders {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    height: 320px;
+  }
+
+  .slider-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+
+  .slider-label {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--white);
+    text-align: center;
+  }
+
+  .slider-track {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slider-track input[type="range"] {
+    width: 220px;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    accent-color: var(--red);
+  }
+
+  .slider-track input[type="range"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .slider-value {
+    font-size: 26px;
+    font-weight: 800;
+    margin-top: 12px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: var(--white);
+  }
+  .slider-value.blue { background: rgba(52, 152, 219, 0.3); border: 1px solid var(--blue); }
+  .slider-value.orange { background: rgba(243, 156, 18, 0.3); border: 1px solid var(--orange); }
+  .slider-value.green { background: rgba(39, 174, 96, 0.3); border: 1px solid var(--green); }
+  .slider-value.red { background: rgba(255, 26, 26, 0.3); border: 1px solid var(--red); }
+
+  .console-result {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--gray-dark);
+  }
+  .console-result h3 {
+    color: var(--white);
+    font-size: 22px;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  .result-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .result-row strong { color: var(--gray-light); }
+  .result-badge {
+    font-size: 22px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 8px;
+    color: var(--white);
+  }
+
+  .status-box {
+    margin-top: 16px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--orange);
+    background: rgba(243, 156, 18, 0.08);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white-muted);
+  }
+
+  /* Static scenario display */
+  .static-console {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 260px;
+    margin-bottom: 20px;
+  }
+  .static-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  .static-slider .label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .static-slider .bar-track {
+    width: 60px;
+    height: 160px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--gray-dark);
+  }
+  .static-slider .bar-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+    transition: height 0.5s ease;
+  }
+  .static-slider .bar-fill.blue { background: linear-gradient(to top, var(--blue), var(--blue-light)); }
+  .static-slider .bar-fill.orange { background: linear-gradient(to top, var(--orange), var(--orange-light)); }
+  .static-slider .bar-fill.green { background: linear-gradient(to top, var(--green), var(--green-light)); }
+  .static-slider .bar-fill.red { background: linear-gradient(to top, var(--red), var(--red-light)); }
+  .static-slider .value {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 10px;
+    color: var(--white);
+  }
+
+  /* Discovery Box */
+  .discovery-box {
+    background: linear-gradient(135deg, #0a1210, #000000);
+    border: 2px solid var(--teal);
+    border-radius: 16px;
+    padding: 28px 40px;
+    max-width: 1000px;
+    width: 100%;
+  }
+  .discovery-box h3 { color: var(--teal); font-size: 22px; margin-bottom: 16px; font-weight: 700; }
+  .discovery-box p, .discovery-box li { font-size: 17px; color: var(--gray-light); line-height: 1.7; font-weight: 500; }
+  .discovery-box ul { padding-left: 24px; }
+  .discovery-box li { margin-bottom: 6px; }
+  .discovery-box strong { color: var(--white); }
+
+  /* Exercise Box */
+  .exercise-box {
+    background: linear-gradient(135deg, #120d00, #000000);
+    border: 2px solid var(--orange);
+    border-radius: 16px;
+    padding: 28px 40px;
+    max-width: 1000px;
+    width: 100%;
+  }
+  .exercise-box h3 { color: var(--orange); font-size: 22px; margin-bottom: 16px; font-weight: 700; }
+  .exercise-box p, .exercise-box li { font-size: 17px; color: var(--gray-light); line-height: 1.7; font-weight: 500; }
+  .exercise-box ul { padding-left: 24px; }
+  .exercise-box li { margin-bottom: 6px; }
+  .exercise-box strong { color: var(--orange-light); }
+
+  /* Checkpoint Box */
+  .checkpoint-box {
+    background: linear-gradient(135deg, #0d0d0d, #000000);
+    border: 2px dashed var(--blue);
+    border-radius: 16px;
+    padding: 32px 44px;
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+  }
+  .checkpoint-box h3 { color: var(--blue); font-size: 24px; margin-bottom: 20px; font-weight: 700; }
+  .checkpoint-box .check-item {
+    font-size: 18px;
+    color: var(--gray-light);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  /* Success Box */
+  .success-box {
+    background: linear-gradient(135deg, #0a120a, #000000);
+    border: 2px solid var(--green);
+    border-radius: 16px;
+    padding: 32px 44px;
+    max-width: 1100px;
+    width: 100%;
+  }
+  .success-box h3 { color: var(--green-light); font-size: 24px; margin-bottom: 20px; font-weight: 700; }
+  .success-box p, .success-box li { font-size: 17px; color: var(--gray-light); line-height: 1.8; font-weight: 500; }
+  .success-box ol { padding-left: 24px; }
+  .success-box li { margin-bottom: 10px; }
+  .success-box strong { color: var(--white); }
+
+  /* Collapsible Details */
+  details {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--gray-dark);
+    border-radius: 12px;
+    margin: 12px 0;
+    max-width: 1000px;
+    width: 100%;
+  }
+  summary {
+    padding: 16px 24px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 12px;
+  }
+  summary:hover { background: rgba(255, 26, 26, 0.08); }
+  details[open] summary { border-bottom: 1px solid var(--gray-dark); border-radius: 12px 12px 0 0; }
+  details .detail-content {
+    padding: 20px 24px;
+    font-size: 17px;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+  details .detail-content strong { color: var(--red-light); }
+  details .detail-content ul { padding-left: 24px; margin: 10px 0; }
+  details .detail-content li { margin-bottom: 6px; }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 1100px;
+  }
+  th {
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 18px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--gray-dark);
+    color: var(--gray-light);
+    font-size: 15px;
+    font-weight: 500;
+  }
+  tr:hover { background: rgba(255, 26, 26, 0.05); }
+
+  /* Fixed Logo */
+  .fixed-logo {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    z-index: 1001;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+  }
+  .fixed-logo:hover { opacity: 1; }
+  .fixed-logo img {
+    height: 80px;
+    width: auto;
+    filter: invert(1) hue-rotate(181.9deg) saturate(2.5) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  }
+
+  /* Keyboard hint */
+  .keyboard-hint {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 500;
+    z-index: 1001;
+  }
+  .keyboard-hint kbd {
+    background: var(--gray-dark);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+    color: var(--white);
+  }
+
+  /* Fixed GitHub Link */
+  .fixed-github {
+    position: fixed;
+    top: 56px;
+    right: 20px;
+    z-index: 1001;
+    background: rgba(255, 26, 26, 0.12);
+    border: 1px solid var(--red-dark);
+    border-radius: 8px;
+    padding: 8px 14px;
+    transition: all 0.3s;
+  }
+  .fixed-github:hover {
+    background: rgba(255, 26, 26, 0.25);
+    border-color: var(--red);
+    transform: scale(1.03);
+  }
+  .fixed-github a {
+    color: var(--red-light);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fixed-github a:hover { color: var(--white); }
+  .fixed-github .gh-icon { font-size: 16px; }
+
+  /* Question Box */
+  .question-box {
+    background: rgba(255, 26, 26, 0.06);
+    border: 2px dashed var(--red);
+    border-radius: 16px;
+    padding: 32px 46px;
+    max-width: 900px;
+    text-align: center;
+  }
+  .question-box p { font-size: 24px; color: var(--red-light); font-weight: 600; line-height: 1.6; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .slide { padding: 24px 20px; }
+    .slide-header h1 { font-size: 32px; }
+    .title-slide h1 { font-size: 40px; }
+    .console-sliders, .static-console { flex-wrap: wrap; height: auto; gap: 20px; }
+    .feature-grid, .scenario-grid { grid-template-columns: 1fr; }
+    .stats-row { gap: 30px; }
+    .stat .num { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Fixed Logo -->
+<div class="fixed-logo">
+  <img src="ai-performance-academy-logo.png" alt="AI Performance Academy">
+</div>
+
+<div class="keyboard-hint">
+  <kbd>&rarr;</kbd> Weiter <kbd>&larr;</kbd> Zur&uuml;ck <kbd>Home</kbd> Start
+</div>
+
+<div class="fixed-github">
+  <a href="https://holgergelhausen.github.io/interactive-assessment/" target="_blank">
+    <span class="gh-icon">&#x1F4CA;</span> Interactive Assessment
+  </a>
+</div>
+
+<div class="slides-container">
+
+  <!-- ============================== -->
+  <!-- SLIDE 0: Title -->
+  <!-- ============================== -->
+  <div class="slide title-slide active" data-slide="0">
+    <h1>&#x1F39A;&#xFE0F; Das KI-Mischpult</h1>
+    <p class="subtitle">KI-Transformation verstehen: Experimentieren &rarr; Entdecken &rarr; Diagnostizieren</p>
+    <p class="meta">DATEV Pr&auml;sentation &bull; 06.02.2026 &bull; 45&ndash;60 Minuten</p>
+    <div class="stats-row" style="margin-top: 40px;">
+      <div class="stat"><div class="num">3</div><div class="label">KI-Regler</div></div>
+      <div class="stat"><div class="num">5</div><div class="label">KI-Szenarien</div></div>
+      <div class="stat"><div class="num">1</div><div class="label">Formel</div></div>
+      <div class="stat"><div class="num">FMD</div><div class="label">Methode</div></div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 1: Willkommen -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="1">
+    <div class="slide-header">
+      <div class="stufe">WILLKOMMEN</div>
+      <h1>&#x1F44B; F&uuml;r wen ist das?</h1>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon">&#x2705;</div>
+        <h4>KI-Integration starten</h4>
+        <p>Sie starten mit <span class="highlight">KI-Integration</span> in Ihrem Unternehmen</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#x2753;</div>
+        <h4>Warum l&auml;uft es nicht?</h4>
+        <p>Sie fragen sich: &ldquo;Warum funktioniert unsere <span class="highlight">KI-Strategie</span> nicht?&rdquo;</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#x1F527;</div>
+        <h4>Praktische Diagnostik</h4>
+        <p>Sie wollen <span class="highlight">praktische Diagnostik</span>, keine Theorie</p>
+      </div>
+    </div>
+
+    <div class="content-box" style="margin-top: 20px;">
+      <h3>Was lernen Sie?</h3>
+      <ol>
+        <li><strong>Das KI-Mischpult</strong>: 3 Regler, die KI-F&uuml;hrungsbedarf vorhersagen</li>
+        <li><strong>Der kontraintuitive Twist</strong>: Warum 50-50-50 die schwierigste KI-Phase ist</li>
+        <li><strong>5 KI-Szenarien</strong>: Typische Situationen in Ihrer KI-Einf&uuml;hrung</li>
+        <li><strong>FMD</strong>: Von Beobachtungen zu KI-Diagnosen</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 2: Das Original - Quelle -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="2">
+    <div class="slide-header">
+      <div class="stufe">DAS ORIGINAL</div>
+      <h1>&#x1F4D6; Das Mischpult des Managements</h1>
+      <p>Die Idee, die hinter dem KI-Mischpult steckt</p>
+    </div>
+
+    <div class="quote-box">
+      <p>&ldquo;Organisationen lassen sich &uuml;ber drei zentrale Stellschrauben steuern &ndash; wie Regler an einem Mischpult.&rdquo;</p>
+      <p style="margin-top: 12px; font-style: normal; font-size: 16px; color: var(--gray);">&mdash; Stefan K&uuml;hl &amp; Judith Muster</p>
+    </div>
+
+    <div style="display: flex; gap: 24px; max-width: 1200px; margin: 0 auto; align-items: stretch;">
+      <div style="flex: 0 0 55%; text-align: center;">
+        <img src="mischpult-original-kuehl-muster.jpeg" alt="Das Original Mischpult des Managements - Kühl/Muster" style="width: 100%; max-height: 380px; object-fit: contain; border-radius: 12px; border: 2px solid var(--gray-dark); box-shadow: 0 4px 24px rgba(0,0,0,0.6);">
+        <p style="font-size: 13px; color: var(--gray); margin-top: 8px; font-style: italic;">Das Original: Mischpult des Managements (K&uuml;hl/Muster)</p>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 12px; justify-content: center;">
+        <div class="scenario-card" style="border-color: var(--gray); margin: 0;">
+          <h4 style="color: var(--gray-light);">&#x1F4DA; Das Buch</h4>
+          <p><strong style="color: var(--white);">Stefan K&uuml;hl</strong> &amp; <strong style="color: var(--white);">Judith Muster</strong>: &ldquo;Organisationen gestalten&rdquo;</p>
+          <p style="font-size: 14px;">Systemtheorie trifft Praxis &ndash; wie Formalisierung Organisationen formt.</p>
+        </div>
+        <div class="scenario-card" style="border-color: var(--red); margin: 0;">
+          <h4 style="color: var(--red-light);">&#x1F393; Mein Zugang</h4>
+          <p>Kennengelernt in einem <strong style="color: var(--white);">Seminar bei Metaplan</strong> &ndash; der Beratung, die Luhmanns Systemtheorie f&uuml;r Organisationen praktisch macht.</p>
+          <div class="result">Seitdem mein wichtigstes Diagnostik-Werkzeug</div>
+        </div>
+        <div class="insight-box" style="margin-top: 0;">
+          <h3>Die Kernidee</h3>
+          <p>Jede Organisation hat Stellschrauben, die man <strong style="color: var(--red);">hoch</strong> oder <strong style="color: var(--red);">niedrig</strong> drehen kann. Jede Einstellung hat Konsequenzen &ndash; es gibt <strong style="color: var(--red);">keine perfekte Position</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 3: Die 3 Original-Dimensionen -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="3">
+    <div class="slide-header">
+      <div class="stufe">DAS ORIGINAL &mdash; 3 DIMENSIONEN</div>
+      <h1>&#x1F39A;&#xFE0F; Programme &bull; Kommunikationswege &bull; Personal</h1>
+    </div>
+
+    <div class="feature-grid" style="max-width: 1200px;">
+      <div class="feature-card" style="border-color: var(--blue);">
+        <div class="icon">&#x1F4CB;</div>
+        <h4 style="color: var(--blue-light);">Programme</h4>
+        <p style="font-size: 15px; margin-bottom: 12px;">Prozesse, Ziele, Routinen</p>
+        <p style="font-size: 14px; color: var(--green-light); margin-bottom: 6px;"><strong>&#x2B07; Niedrig:</strong> Kreativit&auml;t, Schnelligkeit, Selbstverwirklichung</p>
+        <p style="font-size: 13px; color: var(--gray);">&#x2192; Aber: Viele Diskussionen, informale Ziele</p>
+        <p style="font-size: 14px; color: var(--red-light); margin-top: 8px; margin-bottom: 6px;"><strong>&#x2B06; Hoch:</strong> Sicherheit, Kontrolle, Qualit&auml;t</p>
+        <p style="font-size: 13px; color: var(--gray);">&#x2192; Aber: Starrheit bei unvorhergesehenen Ereignissen</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--orange);">
+        <div class="icon">&#x1F4AC;</div>
+        <h4 style="color: var(--orange-light);">Kommunikationswege</h4>
+        <p style="font-size: 15px; margin-bottom: 12px;">Entscheidungsprozesse, Hierarchie</p>
+        <p style="font-size: 14px; color: var(--green-light); margin-bottom: 6px;"><strong>&#x2B07; Niedrig:</strong> Partizipation, Konsens, Mitbestimmung</p>
+        <p style="font-size: 13px; color: var(--gray);">&#x2192; Aber: Langsam, informale Rangordnungen bilden sich</p>
+        <p style="font-size: 14px; color: var(--red-light); margin-top: 8px; margin-bottom: 6px;"><strong>&#x2B06; Hoch:</strong> Klare Zust&auml;ndigkeiten, schnelle Entscheidungen</p>
+        <p style="font-size: 13px; color: var(--gray);">&#x2192; Aber: Wenig Flexibilit&auml;t, Widerstand</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--green);">
+        <div class="icon">&#x1F465;</div>
+        <h4 style="color: var(--green-light);">Personal</h4>
+        <p style="font-size: 15px; margin-bottom: 12px;">Einstellungen, Versetzungen, Entwicklung</p>
+        <p style="font-size: 14px; color: var(--green-light); margin-bottom: 6px;"><strong>&#x2B07; Niedrig:</strong> Organische Entwicklung, Selbstregulierung</p>
+        <p style="font-size: 13px; color: var(--gray);">&#x2192; Aber: &ldquo;Darwinistisch &ndash; verheerend f&uuml;r den Schwachen&rdquo; (Mintzberg)</p>
+        <p style="font-size: 14px; color: var(--red-light); margin-top: 8px; margin-bottom: 6px;"><strong>&#x2B06; Hoch:</strong> Klare Kriterien, Entwicklungspfade</p>
+        <p style="font-size: 13px; color: var(--gray);">&#x2192; Aber: B&uuml;rokratie, Talent-Flucht</p>
+      </div>
+    </div>
+
+    <div class="insight-box" style="margin-top: 10px;">
+      <h3>&#x26A0;&#xFE0F; Die zentrale Erkenntnis von K&uuml;hl &amp; Muster</h3>
+      <p>Es gibt <strong style="color: var(--red);">keine richtige Position</strong>. Jede Einstellung erzeugt Konsequenzen &ndash; und oft <strong style="color: var(--red);">informale Gegenreaktionen</strong>.</p>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 4: Brücke zum KI-Mischpult -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="4">
+    <div class="slide-header">
+      <div class="stufe">VOM ORIGINAL ZUR KI-ADAPTATION</div>
+      <h1>&#x1F504; Vom Management-Mischpult zum KI-Mischpult</h1>
+    </div>
+
+    <div class="content-box" style="max-width: 1000px;">
+      <h3>Die gleiche Logik &ndash; angewendet auf KI-Transformation</h3>
+      <table style="margin-top: 16px;">
+        <thead>
+          <tr>
+            <th>Original (K&uuml;hl/Muster)</th>
+            <th style="font-size: 20px; text-align: center;">&#x2192;</th>
+            <th>KI-Adaptation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&#x1F4CB; <strong style="color: var(--white);">Programme</strong><br><span style="font-size: 13px;">Prozesse, Ziele, Routinen</span></td>
+            <td style="text-align: center; font-size: 20px; color: var(--red);">&#x2192;</td>
+            <td>&#x1F3AF; <strong style="color: var(--blue-light);">KI-Strategie (R1)</strong><br><span style="font-size: 13px;">KI-Vision, KI-Ziele, KI-Roadmap</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F4AC; <strong style="color: var(--white);">Kommunikationswege</strong><br><span style="font-size: 13px;">Entscheidungsprozesse, Hierarchie</span></td>
+            <td style="text-align: center; font-size: 20px; color: var(--red);">&#x2192;</td>
+            <td>&#x2699;&#xFE0F; <strong style="color: var(--orange-light);">KI-Automatisierung (R2)</strong><br><span style="font-size: 13px;">KI-Tools, AI-Integration, Workflows</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F465; <strong style="color: var(--white);">Personal</strong><br><span style="font-size: 13px;">Einstellungen, Entwicklung</span></td>
+            <td style="text-align: center; font-size: 20px; color: var(--red);">&#x2192;</td>
+            <td>&#x1F465; <strong style="color: var(--green-light);">KI-Kompetenz (R3)</strong><br><span style="font-size: 13px;">Prompt-Skills, AI-Literacy, Change</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scenario-grid" style="max-width: 1000px; margin-top: 10px;">
+      <div class="scenario-card" style="border-color: var(--gray);">
+        <h4 style="color: var(--gray-light);">&#x1F504; Was bleibt gleich</h4>
+        <p>Jede Reglerposition hat Konsequenzen. Es gibt keine perfekte Einstellung. Imbalance erzeugt Spannung.</p>
+      </div>
+      <div class="scenario-card" style="border-color: var(--red);">
+        <h4 style="color: var(--red-light);">&#x1F195; Was neu dazukommt</h4>
+        <p>Der <strong style="color: var(--red-light);">4. Regler &ndash; KI-F&uuml;hrungsbedarf</strong> berechnet sich automatisch aus der Konstellation der anderen drei.</p>
+        <div class="result">Das macht die Diagnose messbar!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 5: Warum dieses Werkzeug? -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="5">
+    <div class="slide-header">
+      <div class="stufe">DIE MOTIVATION</div>
+      <h1>&#x2753; Warum habe ich das gebaut?</h1>
+    </div>
+
+    <div class="content-box" style="max-width: 1000px;">
+      <h3>Die Beobachtung aus KI-Transformationen</h3>
+      <p style="font-size: 19px; line-height: 1.8;">In KI-Transformationen sehen wir immer wieder das Gleiche: Menschen stellen <strong>Fragen</strong>. F&uuml;hrungskr&auml;fte &auml;u&szlig;ern <strong>Unsicherheit</strong>. Teams zeigen <strong>Symptome</strong>.</p>
+      <p style="font-size: 19px; line-height: 1.8; margin-top: 12px;">Aus diesen Fragen und Beobachtungen k&ouml;nnen wir <strong>R&uuml;ckschl&uuml;sse auf die Stellregler</strong> ziehen &ndash; und damit die Situation diagnostizieren.</p>
+    </div>
+
+    <div class="feature-grid" style="max-width: 1100px;">
+      <div class="feature-card" style="border-color: var(--orange);">
+        <div class="icon">&#x1F4AC;</div>
+        <h4>Fragen &amp; Symptome</h4>
+        <p style="font-size: 15px;">&ldquo;Warum nutzt keiner ChatGPT?&rdquo;<br>&ldquo;Unsere KI-Strategie funktioniert nicht!&rdquo;<br>&ldquo;Wir haben alles investiert...&rdquo;</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red);">
+        <div class="icon">&#x1F50D;</div>
+        <h4>R&uuml;ckschl&uuml;sse</h4>
+        <p style="font-size: 15px;">Welcher Regler steht wo?<br>Wo ist die Imbalance?<br>Was ist der n&auml;chste Hebel?</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--green);">
+        <div class="icon">&#x1F3AF;</div>
+        <h4>Transparente Diagnose</h4>
+        <p style="font-size: 15px;">Statt Bauchgef&uuml;hl:<br>Messbare Konstellation.<br>Nachvollziehbare Empfehlung.</p>
+      </div>
+    </div>
+
+    <div class="scenario-grid" style="max-width: 1000px; margin-top: 10px;">
+      <div class="scenario-card" style="border-color: var(--blue);">
+        <h4 style="color: var(--blue-light);">&#x1F4CA; Das Interactive Assessment</h4>
+        <p>Das Ergebnis: <strong style="color: var(--white);">500+ KI-spezifische Fragen</strong> in 25 Kategorien, die automatisch auf Regler-Konstellationen schlie&szlig;en.</p>
+        <div class="result"><a href="https://holgergelhausen.github.io/interactive-assessment/" target="_blank" style="color: var(--red-light); text-decoration: none;">&#x2192; github.com/HolgerGelhausen/interactive-assessment</a></div>
+      </div>
+      <div class="scenario-card" style="border-color: var(--red);">
+        <h4 style="color: var(--red-light);">&#x1F39A;&#xFE0F; Diese Pr&auml;sentation</h4>
+        <p>Weil das Assessment komplex ist, habe ich <strong style="color: var(--white);">diese Pr&auml;sentation</strong> gebaut &ndash; um die <strong style="color: var(--white);">Logik dahinter</strong> verst&auml;ndlich zu machen.</p>
+        <div class="result">Erst verstehen, dann diagnostizieren!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 6: Die 3 Dimensionen des KI-Mischpults -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="2">
+    <div class="slide-header">
+      <div class="stufe">TEIL 1 &mdash; DAS KI-MISCHPULT</div>
+      <h1>&#x1F39A;&#xFE0F; Die 3 Dimensionen</h1>
+      <p>Jede KI-Integration hat 3 kritische Dimensionen</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card" style="border-color: var(--blue);">
+        <div class="icon">&#x1F3AF;</div>
+        <h4 style="color: var(--blue-light);">R1 &ndash; KI-Strategie</h4>
+        <p>KI-Vision, KI-Ziele, KI-Roadmap</p>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--blue-light);">&ldquo;<strong>WARUM</strong> setzen wir KI ein?&rdquo;</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--orange);">
+        <div class="icon">&#x2699;&#xFE0F;</div>
+        <h4 style="color: var(--orange-light);">R2 &ndash; KI-Automatisierung</h4>
+        <p>KI-Tools, AI-Integration, Prompt-Bibliotheken</p>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--orange-light);">&ldquo;<strong>WELCHE</strong> KI-Tools nutzen wir?&rdquo;</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--green);">
+        <div class="icon">&#x1F465;</div>
+        <h4 style="color: var(--green-light);">R3 &ndash; KI-Kompetenz</h4>
+        <p>Prompt-Skills, AI-Literacy, Change-Bereitschaft</p>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--green-light);">&ldquo;<strong>WER</strong> kann mit KI arbeiten?&rdquo;</p>
+      </div>
+    </div>
+
+    <div class="insight-box" style="margin-top: 10px;">
+      <h3>&#x1F454; Der 4. Regler &ndash; KI-F&uuml;hrungsbedarf</h3>
+      <p>Bewegt sich <strong style="color: var(--red);">automatisch</strong>! Basiert auf der Balance von R1, R2, R3.<br>
+      Zeigt: Wie intensiv muss Management die KI-Transformation steuern?</p>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 3: Kein Assessment -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="3">
+    <div class="slide-header">
+      <div class="stufe">TEIL 1 &mdash; DAS KI-MISCHPULT</div>
+      <h1>Kein Assessment &ndash; ein Dialog-Werkzeug</h1>
+    </div>
+
+    <div class="scenario-grid" style="max-width: 1000px;">
+      <div class="scenario-card" style="border-color: var(--gray);">
+        <h4 style="color: var(--gray-light);">&#x274C; Klassisches Assessment</h4>
+        <p>50 Fragen ehrlich beantworten &rarr; &ldquo;Sie sind hier&rdquo;</p>
+        <div class="result" style="background: rgba(118,125,140,0.15); color: var(--gray-light);">Hohes Scham-Risiko, statische Diagnose</div>
+      </div>
+      <div class="scenario-card" style="border-color: var(--red);">
+        <h4 style="color: var(--red-light);">&#x2705; Das KI-Mischpult</h4>
+        <p><strong style="color: var(--red-light);">Simulation statt Evaluation</strong>: &ldquo;Was w&auml;re wenn...?&rdquo;</p>
+        <p>Die Konstellation triggert Erkenntnisse. Diagnose durch Spielen!</p>
+        <div class="result">Niedrige Scham-Schwelle: &ldquo;Ich experimentiere&rdquo;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 4: Interaktives Mischpult -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="4">
+    <div class="slide-header">
+      <div class="stufe">EXPERIMENTIERE! &bull; 5 MINUTEN</div>
+      <h1>&#x1F39A;&#xFE0F; Stelle die KI-Regler ein</h1>
+    </div>
+
+    <div class="console-container">
+      <div class="console-sliders">
+        <div class="slider-group">
+          <div class="slider-label">&#x1F3AF; KI-Strategie</div>
+          <div class="slider-track">
+            <input type="range" id="r1-main" min="0" max="100" value="50" oninput="updateMixingConsole('main')">
+          </div>
+          <div id="r1-main-value" class="slider-value blue">50%</div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">&#x2699;&#xFE0F; KI-Automatisierung</div>
+          <div class="slider-track">
+            <input type="range" id="r2-main" min="0" max="100" value="50" oninput="updateMixingConsole('main')">
+          </div>
+          <div id="r2-main-value" class="slider-value orange">50%</div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">&#x1F465; KI-Kompetenz</div>
+          <div class="slider-track">
+            <input type="range" id="r3-main" min="0" max="100" value="50" oninput="updateMixingConsole('main')">
+          </div>
+          <div id="r3-main-value" class="slider-value green">50%</div>
+        </div>
+        <div class="slider-group" style="opacity: 0.85;">
+          <div class="slider-label">&#x1F454; KI-F&uuml;hrung</div>
+          <div class="slider-track">
+            <input type="range" id="leadership-main" min="0" max="100" value="95" disabled>
+          </div>
+          <div id="leadership-main-value" class="slider-value red">95%</div>
+        </div>
+      </div>
+
+      <div class="console-result">
+        <h3>&#x1F4CA; Ergebnis</h3>
+        <div class="result-row">
+          <strong>Durchschnitt:</strong>
+          <span id="avg-main" class="result-badge" style="background: rgba(52,152,219,0.2); border: 1px solid var(--blue);">50</span>%
+        </div>
+        <div class="result-row">
+          <strong>KI-F&uuml;hrungsbedarf:</strong>
+          <span id="leadership-result-main" class="result-badge" style="background: rgba(255,26,26,0.2); border: 1px solid var(--red);">95</span>%
+        </div>
+        <div id="status-text-main" class="status-box">
+          <strong>&#x26A0;&#xFE0F; Status:</strong> <span id="status-label-main">KI-Transformation (PEAK)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 5: Experimentier-Aufgaben -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="5">
+    <div class="slide-header">
+      <div class="stufe">EXPERIMENTIERE!</div>
+      <h1>&#x1F9EA; Aufgaben zum Ausprobieren</h1>
+    </div>
+
+    <div class="feature-grid" style="max-width: 900px;">
+      <div class="feature-card" style="border-color: var(--blue);">
+        <div class="icon">1&#xFE0F;&#x20E3;</div>
+        <h4>Alle auf 10%</h4>
+        <p>Was passiert mit KI-F&uuml;hrung?</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--green);">
+        <div class="icon">2&#xFE0F;&#x20E3;</div>
+        <h4>Alle auf 90%</h4>
+        <p>Was passiert?</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red);">
+        <div class="icon">3&#xFE0F;&#x20E3;</div>
+        <h4>R1=90%, R2+R3=20%</h4>
+        <p>Was passiert?</p>
+      </div>
+    </div>
+
+    <details>
+      <summary>&#x1F4A1; Was beobachtest du?</summary>
+      <div class="detail-content">
+        <ul>
+          <li>Bei <strong>10-10-10</strong>: KI-F&uuml;hrung ~85% (KI-Start braucht intensive Steuerung)</li>
+          <li>Bei <strong>90-90-90</strong>: KI-F&uuml;hrung ~15% (KI-Selbstorganisation)</li>
+          <li>Bei <strong>90-20-20</strong>: KI-F&uuml;hrung ~99% (!) (PowerPoint-KI-Strategie!)</li>
+        </ul>
+        <p style="margin-top: 16px;"><strong>Der KI-F&uuml;hrungs-Regler reagiert auf:</strong></p>
+        <ol style="padding-left: 24px; margin-top: 8px;">
+          <li><strong>Durchschnitt</strong> (Wie KI-reif sind wir insgesamt?)</li>
+          <li><strong>Imbalance</strong> (Wie gro&szlig; sind die Unterschiede?)</li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 6: Die Formel -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="6">
+    <div class="slide-header">
+      <div class="stufe">DIE FORMEL</div>
+      <h1>&#x1F9EE; KI-F&uuml;hrungsbedarf = f(Reifegrad, Imbalance)</h1>
+    </div>
+
+    <div class="scenario-grid" style="max-width: 1000px;">
+      <div class="scenario-card" style="border-color: var(--blue);">
+        <h4 style="color: var(--blue-light);">&#x1F4CA; KI-Reifegrad (Durchschnitt)</h4>
+        <p><strong style="color: var(--gray-light);">0&ndash;35%</strong>: KI-Start &rarr; ~85% F&uuml;hrung</p>
+        <p><strong style="color: var(--orange-light);">35&ndash;65%</strong>: KI-Transformation &rarr; ~95% F&uuml;hrung (PEAK!)</p>
+        <p><strong style="color: var(--green-light);">65&ndash;100%</strong>: KI-Reife &rarr; ~15% F&uuml;hrung</p>
+      </div>
+      <div class="scenario-card" style="border-color: var(--red);">
+        <h4 style="color: var(--red-light);">&#x26A0;&#xFE0F; KI-Imbalance</h4>
+        <p>Je gr&ouml;&szlig;er die Differenz zwischen den Reglern, desto h&ouml;her der F&uuml;hrungsbedarf!</p>
+        <div class="result">R1=90, R2=20, R3=20 &rarr; +25% Bonus &rarr; 99%!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 7: Der kontraintuitive Twist -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="7">
+    <div class="slide-header">
+      <div class="stufe">TEIL 2 &mdash; DER TWIST</div>
+      <h1>&#x26A1; Wann ist KI-F&uuml;hrung am wichtigsten?</h1>
+    </div>
+
+    <div class="question-box">
+      <p>A) Bei 0-0-0 &mdash; Wir starten mit KI<br>
+      B) Bei 50-50-50 &mdash; Wir sind mittendrin<br>
+      C) Bei 90-90-90 &mdash; KI l&auml;uft perfekt</p>
+    </div>
+
+    <details>
+      <summary>&#x1F50D; Antwort aufdecken</summary>
+      <div class="detail-content">
+        <p>Die meisten denken: <strong>A</strong> (Chaos beim KI-Start!)</p>
+        <p style="font-size: 22px; margin: 16px 0;"><strong style="color: var(--red);">FALSCH!</strong> Richtig ist: <strong style="color: var(--red);">B (50-50-50) = KI-PEAK-Phase</strong></p>
+        <ul>
+          <li><strong>Bei 0-0-0</strong>: Fokus klar &rarr; ~85% F&uuml;hrung</li>
+          <li><strong>Bei 50-50-50</strong>: ZWEI Organisationen gleichzeitig, Shadow AI, Zwei-Klassen-Gesellschaft &rarr; <strong>95% F&uuml;hrung (PEAK!)</strong></li>
+          <li><strong>Bei 90-90-90</strong>: KI-Selbstorganisation &rarr; ~15% F&uuml;hrung</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 8: Checkpoint 1 -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="8">
+    <div class="slide-header">
+      <div class="stufe">CHECKPOINT</div>
+      <h1>&#x2705; Checkpoint 1</h1>
+    </div>
+
+    <div class="checkpoint-box">
+      <h3>K&ouml;nnen Sie jetzt...</h3>
+      <div class="check-item">&#x2610; Die 3 KI-Regler benennen?</div>
+      <div class="check-item">&#x2610; Erkl&auml;ren, warum 50-50-50 die KI-PEAK-Phase ist?</div>
+      <div class="check-item">&#x2610; Mit dem KI-Mischpult experimentieren?</div>
+      <p style="margin-top: 20px; color: var(--gray); font-size: 16px;">Falls nein &rarr; Zur&uuml;ck zu den vorherigen Slides!</p>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 9: Szenarien Intro -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="9">
+    <div class="slide-header">
+      <div class="stufe">TEIL 3 &mdash; 5 KI-SZENARIEN</div>
+      <h1>&#x1F3AD; Discovery-Modus</h1>
+      <p>Erkennen Sie die Muster!</p>
+    </div>
+
+    <div class="content-box">
+      <h3>Ihre Aufgabe bei jedem Szenario:</h3>
+      <ol>
+        <li><strong>Beobachten</strong>: Schauen Sie sich die KI-Regler an</li>
+        <li><strong>Erkennen</strong>: Welche Situation kommt Ihnen bekannt vor?</li>
+        <li><strong>Diagnostizieren</strong>: Welcher Regler sollte zuerst bewegt werden?</li>
+      </ol>
+    </div>
+
+    <div class="insight-box">
+      <h3>&#x26A0;&#xFE0F; Die Szenarien haben keine Namen!</h3>
+      <p>Sie entdecken selbst, was dahintersteckt.</p>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 10: Szenario 1 (10-10-10) -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="10">
+    <div class="slide-header">
+      <div class="stufe">SZENARIO 1</div>
+      <h1>&#x1F50D; Welche KI-Situation ist das?</h1>
+    </div>
+
+    <div class="console-container" style="max-width: 900px;">
+      <div class="static-console">
+        <div class="static-slider">
+          <div class="label">&#x1F3AF; KI-Strategie</div>
+          <div class="bar-track"><div class="bar-fill blue" style="height: 10%;"></div></div>
+          <div class="value" style="color: var(--blue-light);">10%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x2699;&#xFE0F; KI-Automatisierung</div>
+          <div class="bar-track"><div class="bar-fill orange" style="height: 10%;"></div></div>
+          <div class="value" style="color: var(--orange-light);">10%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F465; KI-Kompetenz</div>
+          <div class="bar-track"><div class="bar-fill green" style="height: 10%;"></div></div>
+          <div class="value" style="color: var(--green-light);">10%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F454; KI-F&uuml;hrung</div>
+          <div class="bar-track"><div class="bar-fill red" style="height: 85%;"></div></div>
+          <div class="value" style="color: var(--red-light);">85%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="discovery-box">
+      <h3>&#x1F4AD; Partnerarbeit (2 Min)</h3>
+      <ul>
+        <li>Wo haben SIE so eine KI-Situation schon erlebt?</li>
+        <li>Was f&uuml;hlte sich an wie das gr&ouml;&szlig;te Problem?</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>&#x1F4A1; Typische Antworten &amp; Empfehlung</summary>
+      <div class="detail-content">
+        <p><strong>H&auml;ufige Erkennungen:</strong> &ldquo;KI-Pilot-Phase&rdquo;, &ldquo;Erste ChatGPT-Experimente&rdquo;, &ldquo;Niemand wei&szlig;, was KI kann&rdquo;</p>
+        <p style="margin-top: 12px;"><strong style="color: var(--red);">Empfehlung: R1 (KI-Strategie) zuerst!</strong></p>
+        <ul>
+          <li>Ohne KI-Vision sind Tool-K&auml;ufe ziellos</li>
+          <li>&ldquo;WARUM KI?&rdquo; vor &ldquo;WELCHES KI-TOOL?&rdquo;</li>
+          <li>First Steps: KI-Use-Case-Workshop, KI-Vision kommunizieren</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 11: Szenario 2 (90-20-20) -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="11">
+    <div class="slide-header">
+      <div class="stufe">SZENARIO 2</div>
+      <h1>&#x1F50D; Welche KI-Situation ist das?</h1>
+    </div>
+
+    <div class="console-container" style="max-width: 900px;">
+      <div class="static-console">
+        <div class="static-slider">
+          <div class="label">&#x1F3AF; KI-Strategie</div>
+          <div class="bar-track"><div class="bar-fill blue" style="height: 90%;"></div></div>
+          <div class="value" style="color: var(--blue-light);">90%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x2699;&#xFE0F; KI-Automatisierung</div>
+          <div class="bar-track"><div class="bar-fill orange" style="height: 20%;"></div></div>
+          <div class="value" style="color: var(--orange-light);">20%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F465; KI-Kompetenz</div>
+          <div class="bar-track"><div class="bar-fill green" style="height: 20%;"></div></div>
+          <div class="value" style="color: var(--green-light);">20%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F454; KI-F&uuml;hrung</div>
+          <div class="bar-track"><div class="bar-fill red" style="height: 99%;"></div></div>
+          <div class="value" style="color: var(--red-light);">99%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="discovery-box">
+      <h3>&#x1F4AD; Partnerarbeit (2 Min)</h3>
+      <ul>
+        <li>Kennen Sie eine Situation, wo viel &uuml;ber KI <strong>geredet</strong> wurde, aber wenig <strong>umgesetzt</strong>?</li>
+        <li>Wo gab es brillante KI-Pr&auml;sentationen, aber keine KI-Tools?</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>&#x1F4A1; Typische Antworten &amp; Empfehlung</summary>
+      <div class="detail-content">
+        <p><strong>H&auml;ufige Erkennungen:</strong> &ldquo;PowerPoint-KI-Strategie&rdquo;, &ldquo;KI-Vision ohne Umsetzung&rdquo;, &ldquo;KI-Task-Force macht 50 Slides, passiert nichts&rdquo;</p>
+        <p style="margin-top: 12px;"><strong style="color: var(--red);">Empfehlung: R2 + R3 parallel hochziehen!</strong></p>
+        <ul>
+          <li>R1 ist GUT &ndash; nicht runterziehen!</li>
+          <li>R2&uarr; = KI-Tools beschaffen</li>
+          <li>R3&uarr; = Pilot-User schulen</li>
+          <li>First Steps: KI-Tool-Evaluierung, Quick Wins</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 12: Szenario 3 (50-50-50) -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="12">
+    <div class="slide-header">
+      <div class="stufe">SZENARIO 3</div>
+      <h1>&#x1F50D; Was ist das Besondere?</h1>
+    </div>
+
+    <div class="console-container" style="max-width: 900px;">
+      <div class="static-console">
+        <div class="static-slider">
+          <div class="label">&#x1F3AF; KI-Strategie</div>
+          <div class="bar-track"><div class="bar-fill blue" style="height: 50%;"></div></div>
+          <div class="value" style="color: var(--blue-light);">50%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x2699;&#xFE0F; KI-Automatisierung</div>
+          <div class="bar-track"><div class="bar-fill orange" style="height: 50%;"></div></div>
+          <div class="value" style="color: var(--orange-light);">50%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F465; KI-Kompetenz</div>
+          <div class="bar-track"><div class="bar-fill green" style="height: 50%;"></div></div>
+          <div class="value" style="color: var(--green-light);">50%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F454; KI-F&uuml;hrung</div>
+          <div class="bar-track"><div class="bar-fill red" style="height: 95%;"></div></div>
+          <div class="value" style="color: var(--red-light);">95%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="discovery-box">
+      <h3>&#x1F4AD; Das KI-PEAK-Ph&auml;nomen!</h3>
+      <p>Alle KI-Regler auf <strong>50%</strong> (perfekte Balance!) &ndash; aber KI-F&uuml;hrungsbedarf <strong style="color: var(--red);">95%</strong>!!</p>
+      <ul>
+        <li>ZWEI Organisationen gleichzeitig (alt + neu)</li>
+        <li>Shadow AI &uuml;berall</li>
+        <li>Zwei-Klassen-Gesellschaft: KI-Experten vs. KI-Verweigerer</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>&#x1F4A1; Empfehlung</summary>
+      <div class="detail-content">
+        <p><strong style="color: var(--red);">Alle KI-Regler parallel hochziehen + intensive KI-Change-Kommunikation</strong></p>
+        <ul>
+          <li>KI-Champions identifizieren und empowern</li>
+          <li>Shadow AI sichtbar machen (nicht verbieten!)</li>
+          <li>KI-Governance light etablieren</li>
+          <li>Key Message: &ldquo;Das ist normal! KI-Transformation ist schwer. Bleibt dran!&rdquo;</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 13: Szenario 4 (40-80-30) -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="13">
+    <div class="slide-header">
+      <div class="stufe">SZENARIO 4</div>
+      <h1>&#x1F50D; Welche KI-Situation ist das?</h1>
+    </div>
+
+    <div class="console-container" style="max-width: 900px;">
+      <div class="static-console">
+        <div class="static-slider">
+          <div class="label">&#x1F3AF; KI-Strategie</div>
+          <div class="bar-track"><div class="bar-fill blue" style="height: 40%;"></div></div>
+          <div class="value" style="color: var(--blue-light);">40%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x2699;&#xFE0F; KI-Automatisierung</div>
+          <div class="bar-track"><div class="bar-fill orange" style="height: 80%;"></div></div>
+          <div class="value" style="color: var(--orange-light);">80%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F465; KI-Kompetenz</div>
+          <div class="bar-track"><div class="bar-fill green" style="height: 30%;"></div></div>
+          <div class="value" style="color: var(--green-light);">30%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F454; KI-F&uuml;hrung</div>
+          <div class="bar-track"><div class="bar-fill red" style="height: 99%;"></div></div>
+          <div class="value" style="color: var(--red-light);">99%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="discovery-box">
+      <h3>&#x1F4AD; Partnerarbeit (2 Min)</h3>
+      <ul>
+        <li>Kennen Sie eine Situation, wo viel in <strong>KI-Tools</strong> investiert wurde?</li>
+        <li>Aber niemand <strong>nutzt</strong> sie richtig?</li>
+        <li>Wo KI-Lizenzen gekauft, aber Teams <strong>ignorieren</strong> sie?</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>&#x1F4A1; Typische Antworten &amp; Empfehlung</summary>
+      <div class="detail-content">
+        <p><strong>H&auml;ufige Erkennungen:</strong> &ldquo;ChatGPT Enterprise gekauft, niemand nutzt es&rdquo;, &ldquo;Copilot-Lizenzen f&uuml;r alle, Adoption bei 15%&rdquo;</p>
+        <p style="margin-top: 12px;"><strong style="color: var(--red);">Empfehlung: R3 (KI-Kompetenz) hochziehen + R1 (KI-Strategie) kl&auml;ren</strong></p>
+        <ul>
+          <li>R2 ist NICHT das Problem (KI-Tools sind da!)</li>
+          <li>Teams brauchen Prompt-Skills, nicht mehr Lizenzen!</li>
+          <li>First Steps: Prompt-Engineering-Workshops, KI-Champions als Multiplikatoren</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 14: Szenario 5 (90-90-90) -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="14">
+    <div class="slide-header">
+      <div class="stufe">SZENARIO 5</div>
+      <h1>&#x1F50D; Was ist hier anders?</h1>
+    </div>
+
+    <div class="console-container" style="max-width: 900px;">
+      <div class="static-console">
+        <div class="static-slider">
+          <div class="label">&#x1F3AF; KI-Strategie</div>
+          <div class="bar-track"><div class="bar-fill blue" style="height: 90%;"></div></div>
+          <div class="value" style="color: var(--blue-light);">90%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x2699;&#xFE0F; KI-Automatisierung</div>
+          <div class="bar-track"><div class="bar-fill orange" style="height: 90%;"></div></div>
+          <div class="value" style="color: var(--orange-light);">90%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F465; KI-Kompetenz</div>
+          <div class="bar-track"><div class="bar-fill green" style="height: 90%;"></div></div>
+          <div class="value" style="color: var(--green-light);">90%</div>
+        </div>
+        <div class="static-slider">
+          <div class="label">&#x1F454; KI-F&uuml;hrung</div>
+          <div class="bar-track"><div class="bar-fill green" style="height: 15%;"></div></div>
+          <div class="value" style="color: var(--green-light);">15%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="discovery-box">
+      <h3>&#x1F4AD; KI-Selbstorganisation</h3>
+      <p>Alle KI-Regler auf <strong>90%</strong> &ndash; KI-F&uuml;hrungsbedarf nur <strong style="color: var(--green-light);">15%</strong>!</p>
+      <ul>
+        <li>KI l&auml;uft wie selbstverst&auml;ndlich</li>
+        <li>Aber: Risiko KI-Selbstzufriedenheit!</li>
+        <li>Neue AI-Modelle k&ouml;nnen alles ver&auml;ndern</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>&#x1F4A1; Empfehlung</summary>
+      <div class="detail-content">
+        <p><strong style="color: var(--red);">KI-Innovation erm&ouml;glichen + AI-Disruption vorbereiten</strong></p>
+        <ul>
+          <li>90-90-90 ist stabil, aber auch fragil</li>
+          <li>KI-Resilienz &gt; KI-Perfektion</li>
+          <li>AI-Experimentierr&auml;ume schaffen</li>
+          <li>Externe KI-Perspektiven einbringen</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 15: Checkpoint 2 -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="15">
+    <div class="slide-header">
+      <div class="stufe">CHECKPOINT</div>
+      <h1>&#x2705; R&uuml;ckblick &ndash; 5 KI-Szenarien</h1>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Szenario</th>
+          <th>R1 (Strategie)</th>
+          <th>R2 (Tools)</th>
+          <th>R3 (Skills)</th>
+          <th>KI-F&uuml;hrung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong style="color: var(--white);">1</strong></td><td>10</td><td>10</td><td>10</td><td style="color: var(--red-light);">85%</td></tr>
+        <tr><td><strong style="color: var(--white);">2</strong></td><td>90</td><td>20</td><td>20</td><td style="color: var(--red-light);">99%</td></tr>
+        <tr><td><strong style="color: var(--white);">3</strong></td><td>50</td><td>50</td><td>50</td><td style="color: var(--red-light);">95%</td></tr>
+        <tr><td><strong style="color: var(--white);">4</strong></td><td>40</td><td>80</td><td>30</td><td style="color: var(--red-light);">99%</td></tr>
+        <tr><td><strong style="color: var(--white);">5</strong></td><td>90</td><td>90</td><td>90</td><td style="color: var(--green-light);">15%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="checkpoint-box" style="margin-top: 10px;">
+      <h3>K&ouml;nnen Sie jetzt...</h3>
+      <div class="check-item">&#x2610; F&uuml;r jedes Szenario eine eigene Situation aus Ihrem KI-Alltag nennen?</div>
+      <div class="check-item">&#x2610; Erkl&auml;ren, welcher KI-Regler zuerst bewegt werden sollte?</div>
+      <div class="check-item">&#x2610; Das KI-PEAK-Ph&auml;nomen erkl&auml;ren?</div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 16: FMD Intro -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="16">
+    <div class="slide-header">
+      <div class="stufe">TEIL 4 &mdash; FMD</div>
+      <h1>&#x1F3AF; Was haben Sie gerade gemacht?</h1>
+    </div>
+
+    <div class="quote-box">
+      <p>Sie haben gerade <strong style="color: var(--red); font-style: normal;">FMD (Fragen-Muster-Diagnostik)</strong> f&uuml;r KI-Transformationen gelernt!</p>
+    </div>
+
+    <div class="content-box">
+      <h3>FMD = Die F&auml;higkeit, aus typischen KI-Situationen auf KI-Regler-Konstellationen zu schlie&szlig;en</h3>
+      <ol>
+        <li>KI-Situationen <strong>erkannt</strong> (&ldquo;Das kenne ich!&rdquo;)</li>
+        <li>KI-Muster <strong>diagnostiziert</strong> (&ldquo;R2 &gt;&gt; R3 = Tools ohne Skills&rdquo;)</li>
+        <li>KI-Handlungen <strong>abgeleitet</strong> (&ldquo;R3 hochziehen = Prompt-Workshops!&rdquo;)</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 17: FMD in der Praxis -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="17">
+    <div class="slide-header">
+      <div class="stufe">FMD IN DER PRAXIS</div>
+      <h1>&#x1F4AC; Wenn Sie im Meeting h&ouml;ren...</h1>
+    </div>
+
+    <div class="quote-box">
+      <p>&ldquo;Wir haben ChatGPT Enterprise, warum nutzt es keiner?&rdquo;</p>
+    </div>
+
+    <div class="content-box">
+      <h3>Dann wissen Sie:</h3>
+      <ul>
+        <li>Das ist <strong>KI-Szenario 4</strong></li>
+        <li>R2 (KI-Tools) &gt;&gt; R3 (KI-Skills) &rarr; Tools ohne Kompetenz</li>
+        <li>KI-F&uuml;hrungsbedarf: ~99%</li>
+        <li><strong>Aktion: R3 hochziehen (Prompt-Schulungen!)</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 18: FMD Werkzeugkasten -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="18">
+    <div class="slide-header">
+      <div class="stufe">IHR WERKZEUGKASTEN</div>
+      <h1>&#x1F9F0; 5 KI-Erkennungsmuster</h1>
+    </div>
+
+    <div class="feature-grid" style="max-width: 1200px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="feature-card" style="border-color: var(--gray);">
+        <div class="icon">1&#xFE0F;&#x20E3;</div>
+        <h4 style="font-size: 16px;">10-10-10</h4>
+        <p style="font-size: 14px;">KI-Pilotphase, Orientierung n&ouml;tig</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red);">
+        <div class="icon">2&#xFE0F;&#x20E3;</div>
+        <h4 style="font-size: 16px;">90-20-20</h4>
+        <p style="font-size: 14px;">PowerPoint-KI-Strategie ohne Umsetzung</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--orange);">
+        <div class="icon">3&#xFE0F;&#x20E3;</div>
+        <h4 style="font-size: 16px;">50-50-50</h4>
+        <p style="font-size: 14px;">KI-PEAK = Shadow AI, Zwei-Klassen-Gesellschaft</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--blue);">
+        <div class="icon">4&#xFE0F;&#x20E3;</div>
+        <h4 style="font-size: 16px;">40-80-30</h4>
+        <p style="font-size: 14px;">KI-Tools ohne Prompt-Skills</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--green);">
+        <div class="icon">5&#xFE0F;&#x20E3;</div>
+        <h4 style="font-size: 16px;">90-90-90</h4>
+        <p style="font-size: 14px;">KI-Selbstorganisation</p>
+      </div>
+    </div>
+
+    <div class="insight-box" style="margin-top: 10px;">
+      <h3>&#x26A0;&#xFE0F; Merke</h3>
+      <p><strong style="color: var(--red);">KI-Imbalance ist gef&auml;hrlicher als niedriger KI-Reifegrad!</strong></p>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 19: Ihre Organisation -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="19">
+    <div class="slide-header">
+      <div class="stufe">TEIL 5 &mdash; JETZT SIND SIE DRAN!</div>
+      <h1>&#x1F50D; Ihre KI-Organisation diagnostizieren</h1>
+    </div>
+
+    <div class="console-container">
+      <div class="console-sliders">
+        <div class="slider-group">
+          <div class="slider-label">&#x1F3AF; KI-Strategie</div>
+          <div class="slider-track">
+            <input type="range" id="r1-self" min="0" max="100" value="50" oninput="updateMixingConsole('self')">
+          </div>
+          <div id="r1-self-value" class="slider-value blue">50%</div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">&#x2699;&#xFE0F; KI-Automatisierung</div>
+          <div class="slider-track">
+            <input type="range" id="r2-self" min="0" max="100" value="50" oninput="updateMixingConsole('self')">
+          </div>
+          <div id="r2-self-value" class="slider-value orange">50%</div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">&#x1F465; KI-Kompetenz</div>
+          <div class="slider-track">
+            <input type="range" id="r3-self" min="0" max="100" value="50" oninput="updateMixingConsole('self')">
+          </div>
+          <div id="r3-self-value" class="slider-value green">50%</div>
+        </div>
+        <div class="slider-group" style="opacity: 0.85;">
+          <div class="slider-label">&#x1F454; KI-F&uuml;hrung</div>
+          <div class="slider-track">
+            <input type="range" id="leadership-self" min="0" max="100" value="95" disabled>
+          </div>
+          <div id="leadership-self-value" class="slider-value red">95%</div>
+        </div>
+      </div>
+
+      <div class="console-result">
+        <h3>&#x1F4CA; Ihre KI-Diagnose</h3>
+        <div class="result-row">
+          <strong>KI-Reifegrad:</strong>
+          <span id="avg-self" class="result-badge" style="background: rgba(52,152,219,0.2); border: 1px solid var(--blue);">50</span>%
+        </div>
+        <div class="result-row">
+          <strong>KI-F&uuml;hrungsbedarf:</strong>
+          <span id="leadership-result-self" class="result-badge" style="background: rgba(255,26,26,0.2); border: 1px solid var(--red);">95</span>%
+        </div>
+        <div id="status-text-self" class="status-box">
+          <strong>&#x26A0;&#xFE0F; Status:</strong> <span id="status-label-self">KI-Transformation (PEAK)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 20: Reflexionsfragen -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="20">
+    <div class="slide-header">
+      <div class="stufe">REFLEXION &bull; 5 MINUTEN</div>
+      <h1>&#x1F914; KI-Reflexionsfragen</h1>
+    </div>
+
+    <div class="feature-grid" style="max-width: 1000px; grid-template-columns: repeat(2, 1fr);">
+      <div class="feature-card" style="border-color: var(--purple);">
+        <div class="icon">1&#xFE0F;&#x20E3;</div>
+        <h4>Welchem Szenario?</h4>
+        <p>Welchem KI-Szenario (1&ndash;5) &auml;hnelt Ihre Organisation am meisten?</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--purple);">
+        <div class="icon">2&#xFE0F;&#x20E3;</div>
+        <h4>Welcher Regler?</h4>
+        <p>Welcher KI-Regler sollte als n&auml;chstes bewegt werden?</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--purple);">
+        <div class="icon">3&#xFE0F;&#x20E3;</div>
+        <h4>Welche Handlung?</h4>
+        <p>Welche KI-Handlung w&uuml;rden Sie jetzt priorisieren?</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--purple);">
+        <div class="icon">4&#xFE0F;&#x20E3;</div>
+        <h4>Mit wem teilen?</h4>
+        <p>Mit wem w&uuml;rden Sie diese KI-Diagnose teilen?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 21: N&auml;chste Schritte -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="21">
+    <div class="slide-header">
+      <div class="stufe">TEIL 6 &mdash; AKTIONSPLAN</div>
+      <h1>&#x1F4CB; N&auml;chste Schritte</h1>
+    </div>
+
+    <div class="feature-grid" style="max-width: 1000px;">
+      <div class="feature-card" style="border-color: var(--green);">
+        <h4 style="color: var(--green-light);">Diese Woche</h4>
+        <p>&#x2610; 3 KI-Situationen beobachten</p>
+        <p>&#x2610; Welchem Szenario (1&ndash;5) &auml;hnelt das?</p>
+        <p>&#x2610; Welcher KI-Regler sollte bewegt werden?</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--orange);">
+        <h4 style="color: var(--orange-light);">N&auml;chste 2 Wochen</h4>
+        <p>&#x2610; KI Interactive Assessment nutzen</p>
+        <p>&#x2610; Mit Team diskutieren: &ldquo;Wo stehen wir bei KI?&rdquo;</p>
+        <p>&#x2610; N&auml;chsten KI-Hebel identifizieren</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red);">
+        <h4 style="color: var(--red-light);">N&auml;chster Monat</h4>
+        <p>&#x2610; Erste KI-Ma&szlig;nahme implementieren</p>
+        <p>&#x2610; Beobachten ob sich KI-F&uuml;hrungsbedarf &auml;ndert</p>
+        <p>&#x2610; KI-Erkenntnisse mit Leadership teilen</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 22: Zusammenfassung -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="22">
+    <div class="slide-header">
+      <div class="stufe">ZUSAMMENFASSUNG</div>
+      <h1>&#x1F393; Die 5 Kern-KI-Erkenntnisse</h1>
+    </div>
+
+    <div class="feature-grid" style="max-width: 1200px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="feature-card" style="border-color: var(--red); text-align: center;">
+        <div class="icon" style="font-size: 48px;">&#x1F39A;&#xFE0F;</div>
+        <h4 style="font-size: 15px;">3 Regler</h4>
+        <p style="font-size: 13px;">bestimmen KI-F&uuml;hrungsbedarf</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red); text-align: center;">
+        <div class="icon" style="font-size: 48px;">&#x26A1;</div>
+        <h4 style="font-size: 15px;">KI-PEAK</h4>
+        <p style="font-size: 13px;">50-50-50 = schwierigste Phase</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red); text-align: center;">
+        <div class="icon" style="font-size: 48px;">&#x2696;&#xFE0F;</div>
+        <h4 style="font-size: 15px;">Imbalance</h4>
+        <p style="font-size: 13px;">gef&auml;hrlicher als niedriger Reifegrad</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red); text-align: center;">
+        <div class="icon" style="font-size: 48px;">&#x1F3AD;</div>
+        <h4 style="font-size: 15px;">5 Szenarien</h4>
+        <p style="font-size: 13px;">typische KI-Situationen erkennen</p>
+      </div>
+      <div class="feature-card" style="border-color: var(--red); text-align: center;">
+        <div class="icon" style="font-size: 48px;">&#x1F3AF;</div>
+        <h4 style="font-size: 15px;">FMD</h4>
+        <p style="font-size: 13px;">von Situationen auf Regler schlie&szlig;en</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 23: Key Takeaways -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="23">
+    <div class="slide-header">
+      <div class="stufe">KEY TAKEAWAYS</div>
+      <h1>&#x1F511; Die wichtigsten KI-Insights</h1>
+    </div>
+
+    <div class="success-box">
+      <ol>
+        <li><strong>KI-F&uuml;hrung ist NICHT am wichtigsten beim KI-Start</strong> (0-0-0) &rarr; Sondern bei der KI-Transformation (50-50-50)!</li>
+        <li><strong>KI-Imbalance ist gef&auml;hrlicher als niedriger KI-Reifegrad</strong> &rarr; R1=90, R2=20 ist schlimmer als R1=30, R2=30</li>
+        <li><strong>Jedes KI-Szenario braucht eine andere Intervention</strong> &rarr; Nicht &ldquo;mehr F&uuml;hrung&rdquo;, sondern &ldquo;welcher Regler?&rdquo;</li>
+        <li><strong>KI-Change ist am schwierigsten in der Mitte</strong> &rarr; Shadow AI! ZWEI Organisationen gleichzeitig!</li>
+        <li><strong>FMD macht Sie zum KI-Diagnostiker</strong> &rarr; Von KI-Beobachtung zu KI-Handlung</li>
+        <li><strong>Shadow AI ist ein Symptom, kein Problem</strong> &rarr; R3 (KI-Kompetenz) &gt;&gt; R1 (KI-Strategie)</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 24: Luhmann Bonus -->
+  <!-- ============================== -->
+  <div class="slide" data-slide="24">
+    <div class="slide-header">
+      <div class="stufe">BONUS</div>
+      <h1>&#x1F4DA; Luhmann f&uuml;r KI-Interessierte</h1>
+      <p>Die theoretische Grundlage (optional)</p>
+    </div>
+
+    <details>
+      <summary>&#x1F504; Paradoxie 1: KI-Ordnung braucht KI-Unordnung</summary>
+      <div class="detail-content">
+        <p>Je perfekter die KI-Governance, desto mehr Shadow AI.</p>
+        <p style="margin-top: 8px;"><strong>Lehre:</strong> Shadow AI ist nicht der Feind, sondern notwendig!</p>
+        <p style="margin-top: 8px; color: var(--green-light);">&#x2705; Entspricht Luhmanns &ldquo;Variet&auml;t&rdquo;-Konzept</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>&#x1F4CA; Paradoxie 2: Mehr KI-Transparenz &#x2260; Mehr KI-Klarheit</summary>
+      <div class="detail-content">
+        <p>Zu viele KI-Tools &uuml;berfordern. ChatGPT + Claude + Gemini + Copilot + Midjourney = niemand wei&szlig;, wann welches Tool.</p>
+        <p style="margin-top: 8px;"><strong>Lehre:</strong> Weniger, aber fokussierte KI-Tools sind besser.</p>
+        <p style="margin-top: 8px; color: var(--green-light);">&#x2705; Entspricht Luhmanns &ldquo;Entscheidungspr&auml;missen&rdquo;-Konzept</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>&#x26A1; Paradoxie 3: KI-Perfektion ist instabil</summary>
+      <div class="detail-content">
+        <p>Hochoptimierte KI-Systeme sind fragil. GPT-5 kommt &rarr; alles muss neu gedacht werden!</p>
+        <p style="margin-top: 8px;"><strong>Lehre:</strong> KI-Resilienz &gt; KI-Perfektion</p>
+        <p style="margin-top: 8px; color: var(--green-light);">&#x2705; Entspricht Luhmanns &ldquo;operational geschlossene Systeme&rdquo;-Konzept</p>
+      </div>
+    </details>
+
+    <div class="insight-box" style="margin-top: 10px;">
+      <h3>Verbindung zum KI-Mischpult</h3>
+      <p>Luhmann erkl&auml;rt WARUM R2 nicht isoliert funktioniert, Shadow AI wichtig ist und KI-Change (50-50-50) so schwer ist.</p>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SLIDE 25: Danke -->
+  <!-- ============================== -->
+  <div class="slide title-slide" data-slide="25">
+    <h1 style="font-size: 96px;">&#x1F39A;&#xFE0F;</h1>
+    <h1>Danke!</h1>
+    <p class="subtitle">Viel Erfolg beim KI-Diagnostizieren mit dem KI-Mischpult!</p>
+    <p class="meta">DATEV Pr&auml;sentation &bull; 06.02.2026</p>
+    <div class="stats-row" style="margin-top: 40px;">
+      <div class="stat"><div class="num">&#x1F3AF;</div><div class="label">Strategie</div></div>
+      <div class="stat"><div class="num">&#x2699;&#xFE0F;</div><div class="label">Automatisierung</div></div>
+      <div class="stat"><div class="num">&#x1F465;</div><div class="label">Kompetenz</div></div>
+      <div class="stat"><div class="num">&#x1F454;</div><div class="label">F&uuml;hrung</div></div>
+    </div>
+    <div class="insight-box" style="margin-top: 30px; max-width: 600px;">
+      <h3>Kontakt</h3>
+      <p>Holger Gelhausen<br>holger@ki-insights.de</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation Bar -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn" onclick="prevSlide()">&#x2190; Zur&uuml;ck</button>
+  <div class="progress-info">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">26</span></div>
+  </div>
+  <button class="nav-btn next" id="nextBtn" onclick="nextSlide()">Weiter &#x2192;</button>
+</div>
+
+<script>
+  // Mixing Console Logic
+  function updateMixingConsole(id) {
+    const r1 = parseInt(document.getElementById('r1-' + id).value);
+    const r2 = parseInt(document.getElementById('r2-' + id).value);
+    const r3 = parseInt(document.getElementById('r3-' + id).value);
+
+    document.getElementById('r1-' + id + '-value').textContent = r1 + '%';
+    document.getElementById('r2-' + id + '-value').textContent = r2 + '%';
+    document.getElementById('r3-' + id + '-value').textContent = r3 + '%';
+
+    const avg = (r1 + r2 + r3) / 3;
+    let leadership = 0;
+
+    if (avg < 35) {
+      leadership = 75 + (avg / 35) * 10;
+    } else if (avg < 65) {
+      const distanceFrom50 = Math.abs(avg - 50);
+      leadership = 95 - (distanceFrom50 / 15) * 10;
+    } else {
+      leadership = 50 - ((avg - 65) / 35) * 35;
+      if (leadership < 15) leadership = 15;
+    }
+
+    const maxDiff = Math.max(Math.abs(r1 - r2), Math.abs(r2 - r3), Math.abs(r1 - r3));
+    leadership += Math.min(maxDiff * 0.4, 25);
+
+    if (leadership > 99) leadership = 99;
+    if (leadership < 15) leadership = 15;
+    leadership = Math.round(leadership);
+
+    document.getElementById('leadership-' + id).value = leadership;
+    document.getElementById('leadership-' + id + '-value').textContent = leadership + '%';
+    document.getElementById('avg-' + id).textContent = Math.round(avg);
+    document.getElementById('leadership-result-' + id).textContent = leadership;
+
+    const statusBox = document.getElementById('status-text-' + id);
+    const statusLabel = document.getElementById('status-label-' + id);
+
+    if (leadership >= 76) {
+      statusBox.style.background = 'rgba(255, 26, 26, 0.1)';
+      statusBox.style.borderLeftColor = '#FF1A1A';
+      statusLabel.textContent = 'KI-Krisenmodus (hoher Steuerungsbedarf)';
+    } else if (leadership >= 41) {
+      statusBox.style.background = 'rgba(243, 156, 18, 0.1)';
+      statusBox.style.borderLeftColor = '#f39c12';
+      statusLabel.textContent = 'KI-Transformation (moderater Steuerungsbedarf)';
+    } else {
+      statusBox.style.background = 'rgba(39, 174, 96, 0.1)';
+      statusBox.style.borderLeftColor = '#27ae60';
+      statusLabel.textContent = 'KI-Selbstorganisation (niedriger Steuerungsbedarf)';
+    }
+  }
+
+  // Slide Navigation
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+
+  document.getElementById('totalSlides').textContent = totalSlides;
+
+  function showSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    currentSlide = (n + totalSlides) % totalSlides;
+    slides[currentSlide].classList.add('active');
+
+    document.getElementById('currentSlide').textContent = currentSlide + 1;
+    document.getElementById('progressFill').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+
+    document.getElementById('prevBtn').disabled = currentSlide === 0;
+    document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+    // Scroll to top of slide
+    document.querySelector('.slides-container').scrollTop = 0;
+  }
+
+  function nextSlide() { showSlide(currentSlide + 1); }
+  function prevSlide() { showSlide(currentSlide - 1); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { nextSlide(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { prevSlide(); e.preventDefault(); }
+    if (e.key === 'Home') { showSlide(0); e.preventDefault(); }
+    if (e.key === 'End') { showSlide(totalSlides - 1); e.preventDefault(); }
+  });
+
+  // Touch navigation
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+  });
+
+  // Initialize
+  showSlide(0);
+
+  // Initialize mixing consoles when their slides become visible
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      updateMixingConsole('main');
+      updateMixingConsole('self');
+    });
+  } else {
+    updateMixingConsole('main');
+    updateMixingConsole('self');
+  }
+</script>
+
+</body>
+</html>
