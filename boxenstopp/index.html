@@ -1,0 +1,320 @@
+<!-- Boxenstopp - Assessment Hub für WordPress -->
+<!-- Version: 1.0.0 -->
+<!-- Anleitung: Neue WordPress-Seite erstellen → Block "Custom HTML" → diesen Code einfügen -->
+<!-- Changelog:
+  v1.0.0 (2026-02-10) - Initial: 2 Assessments, responsive Grid
+-->
+
+<style>
+.boxenstopp-hero {
+  text-align: center;
+  padding: 48px 20px 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.boxenstopp-hero h1 {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 900;
+  color: #1a1a2e;
+  margin: 0 0 8px;
+  line-height: 1.15;
+}
+.boxenstopp-hero .accent {
+  color: #FF1A1A;
+}
+.boxenstopp-hero .subtitle {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: #5F6673;
+  font-weight: 500;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+.boxenstopp-hero .intro {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 15px;
+  color: #6B7280;
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Grid */
+.boxenstopp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 20px 60px;
+}
+
+/* Cards */
+.boxenstopp-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 32px 28px 28px;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.boxenstopp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 16px 16px 0 0;
+}
+.boxenstopp-card:hover {
+  border-color: #D1D5DB;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Card Color Variants */
+.boxenstopp-card.card-red::before { background: #FF1A1A; }
+.boxenstopp-card.card-blue::before { background: #3B82F6; }
+.boxenstopp-card.card-green::before { background: #10B981; }
+.boxenstopp-card.card-purple::before { background: #8B5CF6; }
+.boxenstopp-card.card-orange::before { background: #F59E0B; }
+.boxenstopp-card.card-teal::before { background: #14B8A6; }
+
+/* Card Icon */
+.boxenstopp-card .card-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+/* Card Category Tag */
+.boxenstopp-card .card-tag {
+  display: inline-block;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+.card-red .card-tag { background: #FEE2E2; color: #DC2626; }
+.card-blue .card-tag { background: #DBEAFE; color: #2563EB; }
+.card-green .card-tag { background: #D1FAE5; color: #059669; }
+.card-purple .card-tag { background: #EDE9FE; color: #7C3AED; }
+.card-orange .card-tag { background: #FEF3C7; color: #D97706; }
+.card-teal .card-tag { background: #CCFBF1; color: #0D9488; }
+
+/* Card Content */
+.boxenstopp-card h3 {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+.boxenstopp-card .card-desc {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 14px;
+  color: #5F6673;
+  line-height: 1.6;
+  margin: 0 0 8px;
+  flex-grow: 1;
+}
+
+/* Card Meta */
+.boxenstopp-card .card-meta {
+  display: flex;
+  gap: 16px;
+  margin: 12px 0 20px;
+  flex-wrap: wrap;
+}
+.boxenstopp-card .card-meta span {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 12px;
+  color: #9CA3AF;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Card Button */
+.boxenstopp-card .card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.card-red .card-btn { background: #FF1A1A; color: #fff; }
+.card-red .card-btn:hover { background: #E00; transform: translateY(-1px); }
+.card-blue .card-btn { background: #3B82F6; color: #fff; }
+.card-blue .card-btn:hover { background: #2563EB; transform: translateY(-1px); }
+.card-green .card-btn { background: #10B981; color: #fff; }
+.card-green .card-btn:hover { background: #059669; transform: translateY(-1px); }
+.card-purple .card-btn { background: #8B5CF6; color: #fff; }
+.card-purple .card-btn:hover { background: #7C3AED; transform: translateY(-1px); }
+.card-orange .card-btn { background: #F59E0B; color: #fff; }
+.card-orange .card-btn:hover { background: #D97706; transform: translateY(-1px); }
+.card-teal .card-btn { background: #14B8A6; color: #fff; }
+.card-teal .card-btn:hover { background: #0D9488; transform: translateY(-1px); }
+
+/* Coming Soon */
+.boxenstopp-card.coming-soon {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.boxenstopp-card.coming-soon .card-btn {
+  background: #D1D5DB !important;
+  color: #9CA3AF !important;
+  cursor: default;
+}
+
+/* Bottom CTA */
+.boxenstopp-cta {
+  text-align: center;
+  padding: 20px 20px 48px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.boxenstopp-cta p {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 15px;
+  color: #6B7280;
+  line-height: 1.6;
+  margin: 0;
+}
+.boxenstopp-cta strong {
+  color: #1a1a2e;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .boxenstopp-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 12px 16px 40px;
+  }
+  .boxenstopp-hero {
+    padding: 32px 16px 20px;
+  }
+}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- HERO -->
+<div class="boxenstopp-hero">
+  <h1>Boxenstopp<span class="accent">.</span></h1>
+  <p class="subtitle">Standortbestimmung in 5 Minuten</p>
+  <p class="intro">
+    Wie ein Boxenstopp in der Formel 1: Kurz anhalten, Status checken, mit klarem Plan weiterfahren.
+    Jedes Assessment zeigt dir, wo du stehst &ndash; und wo der groesste Hebel liegt.
+  </p>
+</div>
+
+<!-- ASSESSMENT GRID -->
+<div class="boxenstopp-grid">
+
+  <!-- Card 1: Claude Code for Business -->
+  <div class="boxenstopp-card card-red">
+    <div class="card-icon">&#9889;</div>
+    <span class="card-tag">Claude Code</span>
+    <h3>Claude Code for Business</h3>
+    <p class="card-desc">
+      25 Bausteine in 5 Kategorien: Vom Setup bis zur Team-Integration.
+      Finde heraus, welche Claude Code Skills dir noch fehlen &ndash; und welche dich zum Power User machen.
+    </p>
+    <div class="card-meta">
+      <span>&#9201; 5 Min</span>
+      <span>&#9776; 25 Fragen</span>
+      <span>&#127942; Sofort-Ergebnis</span>
+    </div>
+    <a href="https://holgergelhausen.github.io/ai-performance-academy-assets/presentations/claude-code-for-business/" target="_blank" rel="noopener" class="card-btn">
+      Assessment starten &#8594;
+    </a>
+  </div>
+
+  <!-- Card 2: KI-Marketing Assessment -->
+  <div class="boxenstopp-card card-blue">
+    <div class="card-icon">&#128200;</div>
+    <span class="card-tag">Marketing</span>
+    <h3>KI im Marketing</h3>
+    <p class="card-desc">
+      Wie gut nutzt du KI in deinem Marketing? Von Content-Erstellung bis Automatisierung &ndash;
+      erkenne deine Staerken und die groessten Quick Wins fuer dein Team.
+    </p>
+    <div class="card-meta">
+      <span>&#9201; 5 Min</span>
+      <span>&#9776; 25 Fragen</span>
+      <span>&#127942; Sofort-Ergebnis</span>
+    </div>
+    <a href="https://holgergelhausen.github.io/ai-performance-academy-assets/presentations/marketing-assessment-light/" target="_blank" rel="noopener" class="card-btn">
+      Assessment starten &#8594;
+    </a>
+  </div>
+
+  <!-- Card 3: Coming Soon Placeholder -->
+  <div class="boxenstopp-card card-green coming-soon">
+    <div class="card-icon">&#129302;</div>
+    <span class="card-tag">Prompt Engineering</span>
+    <h3>Prompt Mastery</h3>
+    <p class="card-desc">
+      Wie gut sind deine Prompts wirklich? Von Zero-Shot bis Chain-of-Thought &ndash;
+      teste dein Prompt-Repertoire und entdecke fortgeschrittene Techniken.
+    </p>
+    <div class="card-meta">
+      <span>&#9201; 5 Min</span>
+      <span>&#9776; 20 Fragen</span>
+      <span>&#128296; Kommt bald</span>
+    </div>
+    <a class="card-btn">
+      Kommt bald
+    </a>
+  </div>
+
+  <!-- Card 4: Coming Soon Placeholder -->
+  <div class="boxenstopp-card card-purple coming-soon">
+    <div class="card-icon">&#127919;</div>
+    <span class="card-tag">Strategie</span>
+    <h3>KI-Strategie Reifegrad</h3>
+    <p class="card-desc">
+      Wo steht dein Unternehmen auf der KI-Reifegradskala?
+      Von Ad-hoc-Nutzung bis zur strategischen Integration &ndash; finde deinen naechsten Schritt.
+    </p>
+    <div class="card-meta">
+      <span>&#9201; 7 Min</span>
+      <span>&#9776; 30 Fragen</span>
+      <span>&#128296; Kommt bald</span>
+    </div>
+    <a class="card-btn">
+      Kommt bald
+    </a>
+  </div>
+
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="boxenstopp-cta">
+  <p>
+    <strong>Du willst mehr als nur wissen, wo du stehst?</strong><br>
+    In unseren Workshops zeigen wir dir, wie du vom Assessment-Ergebnis
+    zum konkreten Aktionsplan kommst.
+  </p>
+</div>
