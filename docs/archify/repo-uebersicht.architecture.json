@@ -1,0 +1,626 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "ai-performance-academy-assets: Aufbau",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1360,
+      690
+    ],
+    "repository": {
+      "url": "https://github.com/HolgerGelhausen/ai-performance-academy-assets",
+      "revision": "23b79bd49efa0dc4db5e665e6cbf8e2f9ef208f5"
+    },
+    "views": [
+      {
+        "id": "marke",
+        "label": "1 · Marken-Assets",
+        "focus": [
+          "logos",
+          "palette",
+          "liacss",
+          "raw"
+        ],
+        "note": "Logos, Farbpalette und LiaScript-Theme sind die Eingaben; academy.css wird per raw-Link in Kursen eingebunden."
+      },
+      {
+        "id": "engine",
+        "label": "2 · Assessment-Engine",
+        "focus": [
+          "engine",
+          "cdn",
+          "assess-cc",
+          "assess-mkt",
+          "assess-ki"
+        ],
+        "note": "Ein inline JS-Engine-Block je Seite, gesteuert durch ein CONFIG-JSON; Radar-Charts über Chart.js."
+      },
+      {
+        "id": "hub",
+        "label": "3 · Hub und Auslieferung",
+        "focus": [
+          "hub",
+          "pages",
+          "assess-cc",
+          "assess-mkt"
+        ],
+        "note": "Der Hub ist ein Custom-HTML-Block für WordPress und verlinkt zwei Assessments auf GitHub Pages."
+      },
+      {
+        "id": "ergebnis",
+        "label": "4 · Ergebnis im Browser",
+        "focus": [
+          "assess-cc",
+          "assess-mkt",
+          "assess-ki",
+          "state",
+          "academy"
+        ],
+        "note": "Kein Backend: Scores liegen in localStorage, geteilt wird per URL-Parameter, gedruckt per Cmd+P."
+      },
+      {
+        "id": "decks",
+        "label": "5 · Vortrags-Decks",
+        "focus": [
+          "slides-agent",
+          "slides-misch",
+          "logos",
+          "pages"
+        ],
+        "note": "Zwei Slide-Decks mit Pfeiltasten-Navigation, eigener Logo-Kopie und YouTube-Embeds."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "logos",
+      "type": "database",
+      "label": "Logos",
+      "sublabel": "logo.png 2000² · 400 · transparent",
+      "pos": [
+        40,
+        170
+      ],
+      "size": [
+        200,
+        56
+      ],
+      "sources": [
+        {
+          "path": "logo.png"
+        },
+        {
+          "path": "logo-400-transparent.png"
+        },
+        {
+          "path": "logo-cropped.png"
+        }
+      ]
+    },
+    {
+      "id": "palette",
+      "type": "database",
+      "label": "Farbpalette.css",
+      "sublabel": "14 --aipa-Variablen, 3× byte-gleich",
+      "pos": [
+        40,
+        304
+      ],
+      "size": [
+        200,
+        56
+      ],
+      "sources": [
+        {
+          "path": "presentations/claude-code-for-business/AI-Performance-Academy-Farbpalette.css"
+        },
+        {
+          "path": "presentations/marketing-assessment-light/AI-Performance-Academy-Farbpalette.css"
+        },
+        {
+          "path": "presentations/ki-strategie-assessment-light/AI-Performance-Academy-Farbpalette.css"
+        }
+      ]
+    },
+    {
+      "id": "liacss",
+      "type": "database",
+      "label": "LiaScript-Themes",
+      "sublabel": "academy.css v2.1.0 + 3 Varianten",
+      "pos": [
+        40,
+        430
+      ],
+      "size": [
+        200,
+        64
+      ],
+      "tag": "v3 = complete",
+      "sources": [
+        {
+          "path": "academy.css",
+          "line": 8,
+          "label": "raw-Link für LiaScript"
+        },
+        {
+          "path": "academy-minimal.css"
+        },
+        {
+          "path": "academy-v3.css"
+        }
+      ]
+    },
+    {
+      "id": "pages",
+      "type": "cloud",
+      "label": "GitHub Pages",
+      "sublabel": "holgergelhausen.github.io/…, logoUrl",
+      "pos": [
+        910,
+        40
+      ],
+      "size": [
+        240,
+        56
+      ],
+      "sources": [
+        {
+          "path": "boxenstopp/index.html",
+          "line": 251,
+          "label": "Pages-URL"
+        },
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 532,
+          "label": "CONFIG.meta.logoUrl"
+        }
+      ]
+    },
+    {
+      "id": "raw",
+      "type": "cloud",
+      "label": "raw.githubusercontent.com",
+      "sublabel": "main/academy.css für LiaScript",
+      "pos": [
+        320,
+        40
+      ],
+      "size": [
+        250,
+        56
+      ],
+      "sources": [
+        {
+          "path": "academy.css",
+          "line": 8,
+          "label": "link:-Zeile"
+        }
+      ]
+    },
+    {
+      "id": "cdn",
+      "type": "external",
+      "label": "CDN",
+      "sublabel": "Chart.js 4.4.7 · Google Fonts Montserrat",
+      "pos": [
+        600,
+        40
+      ],
+      "size": [
+        280,
+        56
+      ],
+      "sources": [
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 41,
+          "label": "chart.umd.min.js"
+        },
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 39,
+          "label": "Montserrat 400–900"
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "type": "backend",
+      "label": "Assessment Engine v5.0.0",
+      "sublabel": "inline JS, CONFIG-JSON je Seite",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        770,
+        64
+      ],
+      "tag": "STORAGE_PREFIX = assess-<id>",
+      "sources": [
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 536,
+          "label": "Engine-Header"
+        },
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 557,
+          "label": "loadState()"
+        },
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 698,
+          "label": "renderNeedResults()"
+        }
+      ]
+    },
+    {
+      "id": "hub",
+      "type": "frontend",
+      "label": "boxenstopp/index.html",
+      "sublabel": "WordPress Custom-HTML, 4 Karten",
+      "pos": [
+        1110,
+        180
+      ],
+      "size": [
+        220,
+        64
+      ],
+      "tag": "2 live · 2 coming soon",
+      "sources": [
+        {
+          "path": "boxenstopp/index.html",
+          "line": 3,
+          "label": "Anleitung WordPress"
+        },
+        {
+          "path": "boxenstopp/index.html",
+          "line": 276,
+          "label": "coming-soon"
+        }
+      ]
+    },
+    {
+      "id": "slides-agent",
+      "type": "frontend",
+      "label": "Agentenschwärme-Deck",
+      "sublabel": "39 Slides · 2 YouTube-Embeds",
+      "pos": [
+        1110,
+        300
+      ],
+      "size": [
+        220,
+        64
+      ],
+      "sources": [
+        {
+          "path": "presentations/agentenschwarm-aipai/index.html",
+          "line": 2301,
+          "label": "querySelectorAll('.slide')"
+        },
+        {
+          "path": "presentations/agentenschwarm-aipai/index.html",
+          "line": 1433,
+          "label": "YouTube-iframe"
+        }
+      ],
+      "tag": "eigene Logo-Kopie"
+    },
+    {
+      "id": "assess-cc",
+      "type": "frontend",
+      "label": "Claude Code for Business",
+      "sublabel": "25 Bausteine · 5 Tiers · 6 Needs",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        230,
+        64
+      ],
+      "tag": "v2.1.0",
+      "sources": [
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 532,
+          "label": "CONFIG"
+        }
+      ]
+    },
+    {
+      "id": "assess-mkt",
+      "type": "frontend",
+      "label": "Marketing-System Assessment",
+      "sublabel": "25 Bausteine · 5 Tiers · 8 Needs",
+      "pos": [
+        580,
+        300
+      ],
+      "size": [
+        250,
+        64
+      ],
+      "tag": "v6.0.0",
+      "sources": [
+        {
+          "path": "presentations/marketing-assessment-light/index.html",
+          "line": 437,
+          "label": "CONFIG"
+        }
+      ]
+    },
+    {
+      "id": "assess-ki",
+      "type": "frontend",
+      "label": "KI-Strategie Self-Assessment",
+      "sublabel": "20 Bausteine · 5 Tiers · 7 Needs",
+      "pos": [
+        850,
+        300
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "tag": "nicht im Hub verlinkt",
+      "sources": [
+        {
+          "path": "presentations/ki-strategie-assessment-light/index.html",
+          "line": 521,
+          "label": "CONFIG"
+        }
+      ]
+    },
+    {
+      "id": "slides-misch",
+      "type": "frontend",
+      "label": "KI-Mischpult-Deck",
+      "sublabel": "30 Slides · Pfeiltasten, Leertaste",
+      "pos": [
+        1110,
+        420
+      ],
+      "size": [
+        220,
+        64
+      ],
+      "sources": [
+        {
+          "path": "presentations/mischpult-ki-transformation/index.html",
+          "line": 1912,
+          "label": "querySelectorAll('.slide')"
+        },
+        {
+          "path": "presentations/mischpult-ki-transformation/index.html",
+          "line": 1936,
+          "label": "keydown"
+        }
+      ],
+      "tag": "eigene Logo-Kopie"
+    },
+    {
+      "id": "state",
+      "type": "database",
+      "label": "localStorage · Share-URL · Print",
+      "sublabel": "-scores · -checks · -need · -history",
+      "pos": [
+        320,
+        500
+      ],
+      "size": [
+        230,
+        64
+      ],
+      "tag": "kein Backend",
+      "sources": [
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 584,
+          "label": "saveState()"
+        },
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 558,
+          "label": "URLSearchParams"
+        },
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 513,
+          "label": "window.print()"
+        }
+      ]
+    },
+    {
+      "id": "academy",
+      "type": "external",
+      "label": "ai-performance.academy",
+      "sublabel": "CTA „Mehr erfahren“ im Ergebnis",
+      "pos": [
+        580,
+        500
+      ],
+      "size": [
+        250,
+        56
+      ],
+      "sources": [
+        {
+          "path": "presentations/claude-code-for-business/index.html",
+          "line": 525,
+          "label": "akademie-cta"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Auslieferung (GitHub Pages, raw, CDN – kein Build)",
+      "wraps": [
+        "pages",
+        "raw",
+        "cdn"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Interaktive Seiten (statisches HTML unter /presentations/ und /boxenstopp/)",
+      "wraps": [
+        "engine",
+        "hub",
+        "slides-agent",
+        "assess-cc",
+        "assess-mkt",
+        "assess-ki",
+        "slides-misch"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Nach dem Ergebnis (nur im Browser des Nutzers)",
+      "wraps": [
+        "state",
+        "academy"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "liacss-raw",
+      "from": "liacss",
+      "to": "raw",
+      "label": "link: in LiaScript-Kursen",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "bottom",
+      "via": [
+        [
+          20,
+          462
+        ],
+        [
+          20,
+          140
+        ],
+        [
+          445,
+          140
+        ]
+      ]
+    },
+    {
+      "id": "palette-cc",
+      "from": "palette",
+      "to": "assess-cc",
+      "label": "per <link>"
+    },
+    {
+      "id": "cdn-engine",
+      "from": "cdn",
+      "to": "engine",
+      "label": "Radar-Charts, Schrift",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "hub-pages",
+      "from": "hub",
+      "to": "pages",
+      "label": "verlinkt 2 Pages-URLs",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "engine-cc",
+      "from": "engine",
+      "to": "assess-cc",
+      "label": "CONFIG",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        560,
+        262
+      ]
+    },
+    {
+      "id": "engine-mkt",
+      "from": "engine",
+      "to": "assess-mkt",
+      "label": "CONFIG",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        705,
+        286
+      ]
+    },
+    {
+      "id": "engine-ki",
+      "from": "engine",
+      "to": "assess-ki",
+      "label": "CONFIG",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        790,
+        262
+      ]
+    },
+    {
+      "id": "cc-state",
+      "from": "assess-cc",
+      "to": "state",
+      "label": "saveState() · Share-URL lädt Scores",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "mkt-academy",
+      "from": "assess-mkt",
+      "to": "academy",
+      "label": "Ergebnis-CTA",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Reines Asset-Repo",
+      "items": [
+        "20 Dateien, kein Build, kein package.json, keine Tests",
+        "GitHub Pages liefert /presentations/, raw.githubusercontent den LiaScript-Theme",
+        "Hub-HTML wird als Custom-HTML-Block in WordPress eingefügt"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Assessment Engine v5.0.0",
+      "items": [
+        "Engine inline je Seite, ein CONFIG-JSON pro Assessment",
+        "Chart.js 4.4.7 Radar, Montserrat 400–900 von Google Fonts",
+        "Zustand nur in localStorage: assess-<id>-scores · -checks · -touched · -need · -history"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Bewusst kein Backend",
+      "items": [
+        "Kein Server, kein Tracking, kein Formular: Teilen per URL, PDF per Cmd+P",
+        "Duplikate in Kauf genommen: academy-v3.css == academy-complete.css, Palette 3×",
+        "og-assessment.png wird referenziert, liegt aber nicht im Repo"
+      ]
+    }
+  ]
+}
